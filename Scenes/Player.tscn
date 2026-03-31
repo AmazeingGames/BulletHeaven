@@ -1,9 +1,11 @@
-[gd_scene load_steps=35 format=3 uid="uid://d30ntqlo34loq"]
+[gd_scene format=3 uid="uid://d30ntqlo34loq"]
 
-[ext_resource type="Script" uid="uid://bl1bal0qict6u" path="res://Player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://bl1bal0qict6u" path="res://Scripts/Player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://d03nut7qhyrxp" path="res://Assets/Sprites/Player/Player Idle 48x48.png" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://d4ccslu8aa2bd" path="res://Assets/Sprites/Player/Player Death 64x64.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://dj0t2xyiyo0i8" path="res://Assets/Sprites/Player/player run 48x48.png" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://dluci775j6pop" path="res://Scenes/HurtBox.tscn" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="6_nn08x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
 atlas = ExtResource("2_vgqql")
@@ -219,18 +221,28 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v0iea"]
-radius = 7.071068
+[sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
+radius = 8.062258
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=1394852611]
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=60992972]
 sprite_frames = SubResource("SpriteFrames_f60y1")
 animation = &"walk"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 10)
-shape = SubResource("CircleShape2D_v0iea")
+[node name="HealthComponent" type="Node" parent="." unique_id=1756785829]
+script = ExtResource("6_nn08x")
+max_health = 10
+metadata/_custom_type_script = "uid://bunfc1f8smcsj"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=573126046]
+position = Vector2(0, 12)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_dewec")
+
+[node name="HurtBox" parent="." unique_id=1337371345 instance=ExtResource("5_5ixxa")]
+position = Vector2(0, 11)
+scale = Vector2(0.6, 0.6)

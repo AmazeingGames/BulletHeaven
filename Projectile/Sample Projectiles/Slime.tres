@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ProjectileBase" format=3 uid="uid://sas4uucsvosd"]
+
+[ext_resource type="Script" uid="uid://dhvhj2ylxexay" path="res://Projectile/Resource/projectile_base.gd" id="1_e6nyw"]
+[ext_resource type="SpriteFrames" uid="uid://cywj3saveudnd" path="res://Projectile/Resource/Slime.tres" id="2_lnq25"]
+
+[resource]
+script = ExtResource("1_e6nyw")
+movement_type = 1
+damage_type = 1
+projectile_speed = 500.0
+affect_value = 50.0
+lifetime = 1.6
+sprite_frame = ExtResource("2_lnq25")
+metadata/_custom_type_script = "uid://dhvhj2ylxexay"

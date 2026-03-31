@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dluci775j6pop"]
+
+[ext_resource type="Script" uid="uid://judrd0mfm8yg" path="res://Scripts/HurtBox.gd" id="1_u7t2x"]
+[ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="2_okarh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t1k2d"]
+
+[node name="HurtBox" type="Area2D" unique_id=1337371345 node_paths=PackedStringArray("health_component")]
+script = ExtResource("1_u7t2x")
+health_component = NodePath("HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1693371480]
+shape = SubResource("CircleShape2D_t1k2d")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1566609090]
+script = ExtResource("2_okarh")
+max_health = 10
+metadata/_custom_type_script = "uid://bunfc1f8smcsj"

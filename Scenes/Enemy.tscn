@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bbb1jaofl4gig"]
+
+[ext_resource type="Script" uid="uid://qqtq7pwumuu" path="res://Scenes/Enemy.gd" id="1_m1htj"]
+[ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="2_wovta"]
+[ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="2_xeo28"]
+[ext_resource type="PackedScene" uid="uid://ug8a56dwmavw" path="res://Scenes/HitBox.tscn" id="4_kpr8r"]
+[ext_resource type="PackedScene" uid="uid://dluci775j6pop" path="res://Scenes/HurtBox.tscn" id="5_1exfc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ne65n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xeo28")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ne65n"]
+radius = 33.333332
+
+[node name="Enemy" type="StaticBody2D" unique_id=2134776135]
+scale = Vector2(0.15, 0.15)
+script = ExtResource("1_m1htj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=333516098]
+sprite_frames = SubResource("SpriteFrames_ne65n")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=268590045]
+position = Vector2(0, 26.666668)
+shape = SubResource("CircleShape2D_ne65n")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=19032163]
+script = ExtResource("2_wovta")
+max_health = 10
+metadata/_custom_type_script = "uid://bunfc1f8smcsj"
+
+[node name="HitBox" parent="." unique_id=1421392425 instance=ExtResource("4_kpr8r")]
+rotation = 2.4112973
+scale = Vector2(5.5, 5.5)
+
+[node name="HurtBox" parent="." unique_id=1337371345 instance=ExtResource("5_1exfc")]
+scale = Vector2(8, 8)

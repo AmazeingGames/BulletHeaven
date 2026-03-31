@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://npjeurex0b5n"]
+
+[ext_resource type="Script" uid="uid://bsiyqkaqepfqx" path="res://Projectile/Projectile.gd" id="1_ghnax"]
+[ext_resource type="Script" uid="uid://dhvhj2ylxexay" path="res://Projectile/Resource/projectile_base.gd" id="2_2pb4h"]
+[ext_resource type="SpriteFrames" uid="uid://0gnwm7iq8bh1" path="res://Projectile/Resource/Bullet.tres" id="3_whj0l"]
+
+[sub_resource type="Resource" id="Resource_whj0l"]
+script = ExtResource("2_2pb4h")
+projectile_speed = 300.0
+lifetime = 10.0
+sprite_frame = ExtResource("3_whj0l")
+metadata/_custom_type_script = "uid://dhvhj2ylxexay"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whj0l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hl16p"]
+radius = 2.0
+
+[node name="Projectile" type="Area2D" unique_id=912711085 node_paths=PackedStringArray("sprite", "lifetime_timer")]
+texture_filter = 1
+script = ExtResource("1_ghnax")
+projectile = SubResource("Resource_whj0l")
+target_position = Vector2(1000, 700)
+sprite = NodePath("Sprite")
+lifetime_timer = NodePath("Lifetime")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=26040282]
+sprite_frames = SubResource("SpriteFrames_whj0l")
+
+[node name="Lifetime" type="Timer" parent="." unique_id=1176572797]
+one_shot = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=672746376]
+shape = SubResource("CircleShape2D_hl16p")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

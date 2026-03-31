@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://0gnwm7iq8bh1"]
+
+[ext_resource type="Texture2D" uid="uid://dlvvrffxupctf" path="res://Assets/Sprites/Projectiles - Placeholder from itch/ph_bullet-Sheet.png" id="1_gwaoc"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gwaoc")
+}],
+"loop": false,
+"name": &"End",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gwaoc")
+}],
+"loop": false,
+"name": &"Start",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gwaoc")
+}],
+"loop": true,
+"name": &"Travel",
+"speed": 10.0
+}]

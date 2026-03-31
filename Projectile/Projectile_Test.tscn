@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://ksdohspatr2j"]
+
+[ext_resource type="Script" uid="uid://bpr3ic0w6fyhw" path="res://Projectile/projectile_test.gd" id="1_sabaq"]
+[ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="2_ncrf7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncrf7"]
+size = Vector2(128, 128)
+
+[node name="ProjectileTest" type="Node2D" unique_id=895541991 node_paths=PackedStringArray("bomb_lobber", "bullet_summoner", "slime_summoner")]
+script = ExtResource("1_sabaq")
+bomb_lobber = NodePath("Bomb_Summoner")
+bullet_summoner = NodePath("Bullet_Summoner")
+slime_summoner = NodePath("Slime_Summoner")
+
+[node name="Timer" type="Timer" parent="." unique_id=1652899128]
+wait_time = 0.1
+autostart = true
+
+[node name="Bomb_Summoner" type="Sprite2D" parent="." unique_id=585323040]
+position = Vector2(157, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ncrf7")
+
+[node name="Area2D" type="Area2D" parent="Bomb_Summoner" unique_id=236779199 groups=["Enemy", "Player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bomb_Summoner/Area2D" unique_id=1570998355]
+shape = SubResource("RectangleShape2D_ncrf7")
+
+[node name="Bullet_Summoner" type="Sprite2D" parent="." unique_id=515744122]
+self_modulate = Color(2.638209, 1.1565812, 0.9863942, 1)
+position = Vector2(600, 300)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ncrf7")
+
+[node name="Slime_Summoner" type="Sprite2D" parent="." unique_id=1068841248]
+self_modulate = Color(0.22327733, 1.2239997, 0.20077533, 1)
+position = Vector2(1016, 7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ncrf7")
+
+[node name="Area2D" type="Area2D" parent="Slime_Summoner" unique_id=505626910 groups=["Enemy", "Player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime_Summoner/Area2D" unique_id=1419771344]
+shape = SubResource("RectangleShape2D_ncrf7")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
