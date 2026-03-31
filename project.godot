@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="BulletHeaven"
-run/main_scene="uid://da3ip4w8cvcsy"
+run/main_scene="uid://bu5w2j7xqkrhq"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

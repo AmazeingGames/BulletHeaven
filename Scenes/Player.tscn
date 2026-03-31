@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://d30ntqlo34loq"]
+[gd_scene format=3 uid="uid://bhk8x24ljuisk"]
 
 [ext_resource type="Script" uid="uid://bl1bal0qict6u" path="res://Scripts/Player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://d03nut7qhyrxp" path="res://Assets/Sprites/Player/Player Idle 48x48.png" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://d4ccslu8aa2bd" path="res://Assets/Sprites/Player/Player Death 64x64.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://dj0t2xyiyo0i8" path="res://Assets/Sprites/Player/player run 48x48.png" id="3_6t5aa"]
-[ext_resource type="PackedScene" uid="uid://dluci775j6pop" path="res://Scenes/HurtBox.tscn" id="5_5ixxa"]
+[ext_resource type="PackedScene" path="res://Scenes/HurtBox.tscn" id="5_5ixxa"]
 [ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="6_nn08x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
@@ -227,6 +227,7 @@ radius = 8.062258
 [node name="Player" type="CharacterBody2D" unique_id=1394852611]
 motion_mode = 1
 script = ExtResource("1_cvnsp")
+movement_speed = 200.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=60992972]
 sprite_frames = SubResource("SpriteFrames_f60y1")
@@ -246,3 +247,6 @@ shape = SubResource("CircleShape2D_dewec")
 [node name="HurtBox" parent="." unique_id=1337371345 instance=ExtResource("5_5ixxa")]
 position = Vector2(0, 11)
 scale = Vector2(0.6, 0.6)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1926810151]
+zoom = Vector2(2, 2)
