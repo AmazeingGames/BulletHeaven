@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bbb1jaofl4gig"]
 
-[ext_resource type="Script" uid="uid://qqtq7pwumuu" path="res://Scenes/Enemy.gd" id="1_m1htj"]
+[ext_resource type="Script" uid="uid://qqtq7pwumuu" path="res://Scripts/Enemy.gd" id="1_m1htj"]
 [ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="2_xeo28"]
-[ext_resource type="PackedScene" uid="uid://dluci775j6pop" path="res://Scenes/HurtBox.tscn" id="5_1exfc"]
-[ext_resource type="Script" uid="uid://b3ly7c1bfbicm" path="res://Scripts/StatComponent.gd" id="5_mo1ky"]
+[ext_resource type="PackedScene" path="res://Scenes/HurtBox.tscn" id="5_1exfc"]
+[ext_resource type="Script" path="res://Scripts/StatComponent.gd" id="5_mo1ky"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ne65n"]
 animations = [{
