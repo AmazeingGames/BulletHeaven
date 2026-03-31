@@ -3,7 +3,7 @@ extends Node
 
 @export var max_health: int
 
-signal health_changed(new_value, max_value)
+signal health_changed(old_value, new_value, max_value)
 signal health_depleted
 
 var current_health: int = max_health
@@ -27,10 +27,10 @@ func take_damage(damageAmount: int) -> void:
 		return
 		
 	print_debug("Health component take damage")
-
+	var old_health = current_health
 	current_health -= damageAmount
 	
-	health_changed.emit(current_health, max_health)
+	health_changed.emit(old_health, current_health, max_health)
 	currentInvincibilityFrames = invincibilityFrames
 	
 	if (current_health <= 0):
@@ -38,6 +38,8 @@ func take_damage(damageAmount: int) -> void:
 	pass
 
 func heal(healAmount:int) -> void:
+	var old_health = current_health
 	current_health += healAmount
-	health_changed.emit(current_health, max_health)
+	
+	health_changed.emit(old_health, max_health)
 	pass

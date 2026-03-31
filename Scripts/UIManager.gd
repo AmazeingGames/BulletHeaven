@@ -11,6 +11,6 @@ func init(health_component : HealthComponent) -> void:
 	health_component.health_changed.connect(_on_player_health_changed)
 	pass
 
-func _on_player_health_changed(new_value, max_value):
+func _on_player_health_changed(old_value, new_value, max_value):
 	health_bar.value = new_value
 	pass

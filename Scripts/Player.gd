@@ -29,7 +29,7 @@ func _physics_process(delta):
 		
 	move_and_slide()	
 
-func _on_health_changed(new_value, max_value):
+func _on_health_changed(old_value, new_value, max_value):
 	print_debug("Player health changed")
 	# Flash
 	# Play SFX
