@@ -1,45 +1,37 @@
-class_name HealthComponent
 extends Node
-
-@export var max_health: int
+class_name HealthComponent
 
 signal health_changed(old_value, new_value, max_value)
-signal health_depleted
+signal health_depleted (unit)
 
-var current_health: int = max_health
-var invincibilityFrames: int
-var currentInvincibilityFrames: int
+@export var max_health: int
+@export var max_invincibility_frames: int
 
-# Called when the node enters the scene tree for the first time.
+var current_health: int
+var current_invincibility_frame: int
+
 func _ready() -> void:
 	current_health = max_health
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	currentInvincibilityFrames -= 1
 	pass
 
-func take_damage(damageAmount: int) -> void:
-
-	if (currentInvincibilityFrames > 0):
-		return
-		
-	print_debug("Health component take damage")
-	var old_health = current_health
-	current_health -= damageAmount
+func _process(_delta: float) -> void:
+	if current_invincibility_frame:
+		current_invincibility_frame -= 1
 	
+
+func damage(damage_value: int):
+	if current_invincibility_frame > 0: return
+	current_invincibility_frame = max_invincibility_frames
+	
+	var old_health = current_health
+	current_health = clamp(current_health - damage_value, 0, max_health) #prevents negative health
 	health_changed.emit(old_health, current_health, max_health)
-	currentInvincibilityFrames = invincibilityFrames
 	
-	if (current_health <= 0):
-		health_depleted.emit()
+	if (current_health == 0):
+		health_depleted.emit(get_parent())
 	pass
 
-func heal(healAmount:int) -> void:
+func heal (heal_value: int) -> void:
 	var old_health = current_health
-	current_health += healAmount
-	
-	health_changed.emit(old_health, max_health)
-	pass
+	current_health = clamp(current_health + heal_value, 0, max_health) #clamp prevents unintended overheal.
+	health_changed.emit(old_health, current_health, max_health)

@@ -1,11 +1,11 @@
 extends Node
 
-@onready var player := $Player
-@onready var ui_manager := $UIManager
+@export var player : Player
+@export var ui_manager : UIManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ui_manager.init(player.health_component)
+	ui_manager.assign_player(player.find_child("HealthComponent"))
 
 	pass # Replace with function body.
 

@@ -3,6 +3,7 @@ class_name ZoneSpawner
 
 @export var width : float
 @export var height : float
+@export var player : Player
 
 func spawn_enemies(number : int, enemy_instance_path : String):
 	var enemy := load(enemy_instance_path)
@@ -14,6 +15,8 @@ func spawn_enemies(number : int, enemy_instance_path : String):
 		var new_enemy = enemy.instantiate()
 		
 		# place any enemy start behavior/needed changes here
+		new_enemy.target = player
+		new_enemy.add_to_group("Enemy")
 		
 		var random_x = randf_range(global_position.x - x_size, global_position.x + x_size)
 		var random_y = randf_range(global_position.y - y_size, global_position.y + y_size)

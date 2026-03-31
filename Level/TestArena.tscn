@@ -3,23 +3,44 @@
 [ext_resource type="PackedScene" uid="uid://da3ip4w8cvcsy" path="res://Scenes/Map.tscn" id="1_h6ff3"]
 [ext_resource type="Script" uid="uid://cq3amxmqw12mo" path="res://Level/test_arena.gd" id="1_yd8ht"]
 [ext_resource type="Script" uid="uid://baekng1xbagnp" path="res://Level/Spawner/spawner_point.gd" id="3_odgqq"]
+[ext_resource type="PackedScene" uid="uid://d30ntqlo34loq" path="res://Scenes/Player.tscn" id="4_odgqq"]
+[ext_resource type="PackedScene" uid="uid://bbb1jaofl4gig" path="res://Scenes/Enemy.tscn" id="5_2bvus"]
 
 [node name="TestArena" type="Node2D" unique_id=1180282159 node_paths=PackedStringArray("spawners")]
 script = ExtResource("1_yd8ht")
 spawners = [NodePath("ZoneSpawner"), NodePath("ZoneSpawner2")]
 
-[node name="Map" parent="." unique_id=1138633799 instance=ExtResource("1_h6ff3")]
+[node name="Map" parent="." unique_id=1138633799 node_paths=PackedStringArray("player", "ui_manager") instance=ExtResource("1_h6ff3")]
+player = NodePath("../Player")
+ui_manager = NodePath("UIManager")
 
-[node name="ZoneSpawner" type="Node2D" parent="." unique_id=2041328769]
-position = Vector2(0, -111)
+[node name="ZoneSpawner" type="Node2D" parent="." unique_id=2041328769 node_paths=PackedStringArray("player")]
+position = Vector2(5, -62)
 script = ExtResource("3_odgqq")
 width = 100.0
 height = 50.0
+player = NodePath("../Player")
 metadata/_custom_type_script = "uid://baekng1xbagnp"
 
-[node name="ZoneSpawner2" type="Node2D" parent="." unique_id=1608752374]
+[node name="ZoneSpawner2" type="Node2D" parent="." unique_id=1608752374 node_paths=PackedStringArray("player")]
 position = Vector2(-527, -1)
 script = ExtResource("3_odgqq")
 width = 50.0
 height = 100.0
+player = NodePath("../Player")
 metadata/_custom_type_script = "uid://baekng1xbagnp"
+
+[node name="Player" parent="." unique_id=1394852611 instance=ExtResource("4_odgqq")]
+z_index = 1
+
+[node name="Enemy" parent="." unique_id=2134776135 node_paths=PackedStringArray("target") instance=ExtResource("5_2bvus")]
+position = Vector2(-51, 0)
+far_distance = 10.0
+target = NodePath("../Player")
+
+[node name="Enemy2" parent="." unique_id=1277496296 node_paths=PackedStringArray("target") instance=ExtResource("5_2bvus")]
+position = Vector2(-29, -19)
+far_distance = 10.0
+target = NodePath("../Player")
+
+[editable path="Map"]

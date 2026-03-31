@@ -27,6 +27,7 @@ project/assembly_name="BulletHeaven"
 
 Player=""
 Enemy=""
+Hitbox=""
 
 [input]
 
