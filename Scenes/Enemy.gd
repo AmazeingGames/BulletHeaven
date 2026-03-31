@@ -3,6 +3,7 @@ extends Node2D
 @export var animation_player: AnimationPlayer
 @export var effect_player: AnimationPlayer
 @export var health_component : HealthComponent
+@export var gpu_particles_2d: GPUParticles2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,8 +28,10 @@ func _on_health_changed(old_value, new_value, max_value):
 	
 	if (tookDamage):
 		# Plays SFX, creates particles, flashes white
-		# Particles don't play when called in rapid succession
+		# I'm not sure the best way to set this up to account for taking damage 
+		#   multiple times in short succession
 		effect_player.play("TakeDamage")
+		gpu_particles_2d.restart()
 		pass
 	else: if (healed):
 		pass
