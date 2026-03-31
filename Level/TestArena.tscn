@@ -30,7 +30,7 @@ height = 100.0
 player = NodePath("../Player")
 metadata/_custom_type_script = "uid://baekng1xbagnp"
 
-[node name="Player" parent="." unique_id=1394852611 instance=ExtResource("4_odgqq")]
+[node name="Player" parent="." unique_id=1394852611 groups=["Player"] instance=ExtResource("4_odgqq")]
 z_index = 1
 
 [node name="Enemy" parent="." unique_id=2134776135 node_paths=PackedStringArray("target") instance=ExtResource("5_2bvus")]

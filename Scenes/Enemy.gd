@@ -54,24 +54,52 @@ func _process(delta: float) -> void:
 
 func update_idle():
 	## call animation code here
-	if current_stun > 0: return
+	if current_stun > 0:
+		self_modulate = Color (255,255,255)
+		return
+	
+	if get_direction().length() > 0.1:
+		current_state = EnemyState.FOLLOW
+		#set follow animations
 
 func update_follow(delta):
-	var direction = (position - target.position).normalized()
+	smooth_direction = lerp(smooth_direction, get_direction(), delta)
 	var speed = stats.get_speed() * delta
+	
+	if smooth_direction.length() > 0.1:
+		position -= smooth_direction * Vector2(speed, speed)
+	else:
+		current_state = EnemyState.IDLE
+		print("idle")
+	pass
 
+func update_hurt():
+	## play animation
+	#if animation.is_stopped():
+	current_state = EnemyState.IDLE
+	self_modulate = Color (255,200,200)
+	pass
+
+func _on_damage_taken(value: int):
+	health.damage(value)
+	current_state = EnemyState.HURT
+	current_stun = max_stun
+
+func _on_speed_debuff(value: int, duration: float):
+	stats.add_speed_debuff(value,duration)
+	pass
+
+func get_direction():
+	var difference = position - target.position
+	var direction = difference.normalized()
 	var adjustor = Vector2 (0.0, 0.0)
 
 	for enemy in personal_space:
-		var e = personal_space[enemy]
-		adjustor = adjustor + (position - e.position).normalized()
+		adjustor = adjustor + (position - personal_space[enemy].position).normalized()
 
 	if personal_space.size() > 0:
 		adjustor = adjustor/personal_space.size()
-
 	adjustor = adjustor.normalized() / 2.0
-
-	var difference = position - target.position
 
 	if abs(difference.x) < far_distance:
 		direction.x = 0
@@ -83,17 +111,7 @@ func update_follow(delta):
 	elif abs(difference.y) > 5 * far_distance:
 		direction.y -= adjustor.y
 	
-	smooth_direction = lerp(smooth_direction,direction,delta)
-	
-	position -= smooth_direction * Vector2(speed, speed)
-
-func _on_damage_taken(value: int):
-	health.damage(value)
-
-func _on_speed_debuff(value: int, duration: float):
-	stats.add_speed_debuff(value,duration)
-	pass
-
+	return direction
 
 func _on_push_zone_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("Enemy") and self != area.get_parent():
