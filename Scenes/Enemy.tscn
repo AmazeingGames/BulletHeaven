@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="2_xeo28"]
 [ext_resource type="PackedScene" uid="uid://dluci775j6pop" path="res://Scenes/HurtBox.tscn" id="5_1exfc"]
+[ext_resource type="Script" uid="uid://b3ly7c1bfbicm" path="res://Scripts/StatComponent.gd" id="5_mo1ky"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ne65n"]
 animations = [{
@@ -17,17 +18,26 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ne65n"]
-radius = 33.333332
+radius = 70.0
 
-[node name="Enemy" type="StaticBody2D" unique_id=2134776135]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1exfc"]
+radius = 100.0
+
+[node name="Enemy" type="StaticBody2D" unique_id=2134776135 node_paths=PackedStringArray("health", "stats", "sprite", "hurtbox", "push_zone") groups=["Enemy"]]
 scale = Vector2(0.15, 0.15)
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_m1htj")
+health = NodePath("HealthComponent")
+stats = NodePath("StatComponent")
+sprite = NodePath("Sprite")
+hurtbox = NodePath("HurtBox")
+push_zone = NodePath("PushZone")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=333516098]
 sprite_frames = SubResource("SpriteFrames_ne65n")
 
-[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=268590045]
-position = Vector2(0, 26.666668)
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=268590045 groups=["Hitbox"]]
 shape = SubResource("CircleShape2D_ne65n")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=19032163]
@@ -37,4 +47,18 @@ max_invincibility_frames = 15
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 
 [node name="HurtBox" parent="." unique_id=1337371345 instance=ExtResource("5_1exfc")]
-scale = Vector2(8, 8)
+scale = Vector2(8, 8.120046)
+
+[node name="StatComponent" type="Node" parent="." unique_id=824622379]
+script = ExtResource("5_mo1ky")
+base_speed = 100
+max_stun_time = 2
+metadata/_custom_type_script = "uid://b3ly7c1bfbicm"
+
+[node name="PushZone" type="Area2D" parent="." unique_id=997432061]
+
+[node name="Shape" type="CollisionShape2D" parent="PushZone" unique_id=956482320]
+shape = SubResource("CircleShape2D_1exfc")
+
+[connection signal="area_entered" from="PushZone" to="." method="_on_push_zone_area_entered"]
+[connection signal="area_exited" from="PushZone" to="." method="_on_push_zone_area_exited"]
