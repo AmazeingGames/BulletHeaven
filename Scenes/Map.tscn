@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dik4pjtdro8sm" path="res://Assets/Sprites/Tilemaps/TilesetFloor.png" id="3_00287"]
 [ext_resource type="Script" uid="uid://du2ijm84sxc08" path="res://Scripts/UIManager.gd" id="4_5t7yc"]
 [ext_resource type="PackedScene" uid="uid://skktwvqbt35l" path="res://Scenes/Bar.tscn" id="5_00287"]
+[ext_resource type="PackedScene" uid="uid://bbb1jaofl4gig" path="res://Scenes/Enemy.tscn" id="5_r08cw"]
 [ext_resource type="PackedScene" uid="uid://d30ntqlo34loq" path="res://Scenes/Player.tscn" id="6_00287"]
 [ext_resource type="PackedScene" uid="uid://dtv7v4qnkycg4" path="res://Scenes/DetectionArea.tscn" id="7_5t7yc"]
+[ext_resource type="PackedScene" uid="uid://cc8lucwqvvk4u" path="res://Scenes/Weapon.tscn" id="7_ngcqm"]
+[ext_resource type="Resource" uid="uid://dfascp4gsy4pt" path="res://Resources/Knives/Knives.tres" id="8_ws1hi"]
+[ext_resource type="PackedScene" uid="uid://npjeurex0b5n" path="res://Projectile/Projectile.tscn" id="9_xicox"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p3ir5"]
 texture = ExtResource("3_00287")
@@ -579,4 +583,15 @@ shape = SubResource("CapsuleShape2D_00287")
 [node name="Player" parent="." unique_id=1394852611 groups=["Player"] instance=ExtResource("6_00287")]
 z_index = 1
 
-[node name="DetectionArea" parent="." unique_id=1657825118 instance=ExtResource("7_5t7yc")]
+[node name="DetectionArea2" parent="Player" unique_id=1657825118 instance=ExtResource("7_5t7yc")]
+
+[node name="Weapon" parent="Player/DetectionArea2" unique_id=1626368722 node_paths=PackedStringArray("test_detection_area", "projectile_holder") instance=ExtResource("7_ngcqm")]
+weapon_data = ExtResource("8_ws1hi")
+projectile_ref = ExtResource("9_xicox")
+test_detection_area = NodePath("..")
+projectile_holder = NodePath("../../../ProjectileHolder")
+
+[node name="ProjectileHolder" type="Node2D" parent="." unique_id=890135303]
+
+[node name="Enemy" parent="." unique_id=2134776135 instance=ExtResource("5_r08cw")]
+position = Vector2(-138, 65)

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dfascp4gsy4pt"]
+
+[ext_resource type="Resource" uid="uid://dx7qnple2q2pv" path="res://Resources/Knives/KnivesProjectile.tres" id="1_8eu0t"]
+[ext_resource type="Script" uid="uid://cplej304bd4a3" path="res://Scripts/Attack/WeaponData.gd" id="1_v3mx5"]
+[ext_resource type="Resource" uid="uid://bb2wrgdqcjirq" path="res://Resources/Knives/KnivesStats.tres" id="2_8eu0t"]
+[ext_resource type="Resource" uid="uid://csscnqpaixbt6" path="res://Resources/Knives/KnivesUpgradeStats.tres" id="3_48x0p"]
+
+[resource]
+script = ExtResource("1_v3mx5")
+stats = ExtResource("2_8eu0t")
+upgrade_amount = ExtResource("3_48x0p")
+projectile_data = ExtResource("1_8eu0t")
+metadata/_custom_type_script = "uid://cplej304bd4a3"

@@ -22,10 +22,10 @@ enum AnimationState {START,TRAVEL,END}
 ## Movement direction (in degres) for standard projectiles.
 @export var direction : float = 45
 
-## Target position (used for lob).
+## Target global_position (used for lob).
 @export var target_position : Vector2
 
-## Target position (used for homing).
+## Target global_position (used for homing).
 @export var target : Node2D
 
 @export_category("Exported References")
@@ -38,7 +38,7 @@ var detection_area : DetectionArea
 #region Internal Variables
 var current_state := AnimationState.START # Current animation state.
 var target_group: String # Group this projectile_data can interact with.
-var starting_position : Vector2 # Initial spawn position (used in lob calculations).
+var starting_position : Vector2 # Initial spawn global_position (used in lob calculations).
 var reference_scale : Vector2 # Projectile size set in projectile data. Used to calculate scale
 
 var targets = {}
@@ -49,34 +49,29 @@ var targets = {}
 const delete_time = 60 # Default lifetime if not using timed behavior.
 
 func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: String, 
-		_detection_area: DetectionArea) -> void:
-	
+		closest_target: Node2D) -> void:
 	projectile_data = _projectile_base
-		
+	
 	reference_scale = projectile_data.scale
 	direction = _origin.rotation
-	position = _origin.position
+	global_position = _origin.global_position
 	target_group = _target_group
-	detection_area = _detection_area
-
+	
 	match projectile_data.movement_type:
 		projectile_data.MovementType.LOB:
-			var enemy = _detection_area.find_closest_target_at(_origin.global_position, 1000, _target_group)
-			if enemy != null:
-				var dir = (enemy.global_position - _origin.global_position).normalized()
-				target_position = _origin.global_position + dir * 800
-			else:
-				target_position = _origin.global_position + Vector2(800, 0)
-		
+			assert(closest_target != null, "Closest target should not be null when the projectile is initialized. 
+				Ensure `RequiresTarget` is set to true on WeaponData resource.")
+			var dir = (closest_target.global_position - _origin.global_position).normalized()
+			target_position = _origin.global_position + dir * 800
+		projectile_data.MovementType.HOMING:
+			assert(closest_target != null, "Closest target should not be null when the projectile is initialized. 
+				Ensure `RequiresTarget` is set to true on WeaponData resource.")
 		_:
 			# We don't set scale in lob since that's determined by a calculation
 			scale = projectile_data.scale 
 		pass
 	
-	pass
-
-func _ready() -> void:
-	starting_position = position
+	starting_position = global_position
 	sprite.sprite_frames = projectile_data.sprite_frame
 
 	## Assigns timer value with special case for timed projectiles.
@@ -109,8 +104,8 @@ func update_standard (delta: float):
 	
 	rotation = direction
 	
-	position.x = position.x + projectile_speed * cos(direction)
-	position.y = position.y + projectile_speed * sin(direction)
+	global_position.x = global_position.x + projectile_speed * cos(direction)
+	global_position.y = global_position.y + projectile_speed * sin(direction)
 	pass
 
 ## Moves toward a target
@@ -118,24 +113,24 @@ func update_homing (delta: float):
 	var projectile_speed = projectile_data.projectile_speed * delta
 	
 	if target == null or not is_instance_valid(target):
-		target = detection_area.find_closest_target_at(position, 10000, target_group)
+		target = detection_area.find_closest_target_at(global_position, 10000, target_group)
 	
 	if target == null or not is_instance_valid(target):
 		return			
 	
 	look_at(target.global_position) # Rotate toward target.
 	
-	position.x = position.x + projectile_speed * cos(rotation)
-	position.y = position.y + projectile_speed * sin(rotation)
+	global_position.x = global_position.x + projectile_speed * cos(rotation)
+	global_position.y = global_position.y + projectile_speed * sin(rotation)
 	pass
 
-## Arcing motion toward a target position.
+## Arcing motion toward a target global_position.
 func update_lob (delta: float):
 	var projectile_speed = projectile_data.projectile_speed * delta
 	
-	var angle = position.angle_to_point(target_position)
+	var angle = global_position.angle_to_point(target_position)
 	
-	var numerator = target_position.x - position.x
+	var numerator = target_position.x - global_position.x
 	var denominator = target_position.x - starting_position.x
 	
 	var scale_factor = numerator / denominator
@@ -146,8 +141,8 @@ func update_lob (delta: float):
 	
 	#rotate(10*delta)
 	
-	position.x = position.x + projectile_speed * cos(angle)
-	position.y = position.y + projectile_speed * sin(angle)
+	global_position.x = global_position.x + projectile_speed * cos(angle)
+	global_position.y = global_position.y + projectile_speed * sin(angle)
 	pass
 #endregion
 
@@ -177,9 +172,9 @@ func check_collision():
 	
 	current_state = AnimationState.END
 
-## Ends when reaching target position.
+## Ends when reaching target global_position.
 func check_target():
-	if abs(position.x - target_position.x) > 5: return
+	if abs(global_position.x - target_position.x) > 5: return
 	
 	current_state = AnimationState.END
 	apply_effect()
@@ -193,7 +188,7 @@ func apply_effect():
 		for n in targets:
 			print(targets[n].name, " takes ", projectile_data.affect_value)
 	elif projectile_data.damage_type == projectile_data.DamageType.AOE:
-		print("area of effect summoned at ", round(position))
+		print("area of effect summoned at ", round(global_position))
 	pass
 #endregion
 

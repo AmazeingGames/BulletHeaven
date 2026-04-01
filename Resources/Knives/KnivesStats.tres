@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponStats" format=3 uid="uid://bb2wrgdqcjirq"]
+
+[ext_resource type="Script" uid="uid://b7b1rvv44u4qs" path="res://Scripts/Attack/WeaponStats.gd" id="1_yknum"]
+
+[resource]
+script = ExtResource("1_yknum")
+scale = Vector2(1, 1)
+damage = 1
+seconds_between_attacks = 0.5
+projectiles_per_attack = 1
+metadata/_custom_type_script = "uid://b7b1rvv44u4qs"

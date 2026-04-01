@@ -18,7 +18,7 @@ slime_summoner = NodePath("Slime_Summoner")
 detection_area = NodePath("DetectionArea")
 
 [node name="Timer" type="Timer" parent="." unique_id=1652899128]
-wait_time = 0.1
+wait_time = 0.5
 autostart = true
 
 [node name="Bomb_Summoner" type="Sprite2D" parent="." unique_id=585323040]
