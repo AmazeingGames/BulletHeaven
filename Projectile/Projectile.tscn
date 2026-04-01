@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bsiyqkaqepfqx" path="res://Projectile/Projectile.gd" id="1_ghnax"]
 [ext_resource type="Script" uid="uid://dhvhj2ylxexay" path="res://Projectile/Resource/projectile_base.gd" id="2_2pb4h"]
 [ext_resource type="SpriteFrames" uid="uid://0gnwm7iq8bh1" path="res://Projectile/Resource/Bullet.tres" id="3_whj0l"]
+[ext_resource type="Texture2D" uid="uid://dlvvrffxupctf" path="res://Assets/Sprites/Projectiles - Placeholder from itch/ph_bullet-Sheet.png" id="4_2pb4h"]
 
 [sub_resource type="Resource" id="Resource_whj0l"]
 script = ExtResource("2_2pb4h")
@@ -12,6 +13,15 @@ sprite_frame = ExtResource("3_whj0l")
 metadata/_custom_type_script = "uid://dhvhj2ylxexay"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_whj0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2pb4h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hl16p"]
 radius = 2.0
