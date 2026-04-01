@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://clpklu017l7by" path="res://Assets/Shaders/Flash.gdshader" id="2_mo1ky"]
 [ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="2_xeo28"]
-[ext_resource type="PackedScene" path="res://Scenes/HurtBox.tscn" id="5_1exfc"]
+[ext_resource type="PackedScene" uid="uid://dluci775j6pop" path="res://Scenes/HurtBox.tscn" id="5_1exfc"]
 [ext_resource type="Script" uid="uid://b3ly7c1bfbicm" path="res://Scripts/StatComponent.gd" id="5_mo1ky"]
 [ext_resource type="AudioStream" uid="uid://u3celb5idtbq" path="res://Assets/Sounds/hurt.wav" id="7_6bs3c"]
 
