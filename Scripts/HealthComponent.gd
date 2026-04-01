@@ -31,7 +31,7 @@ func damage(damage_value: int):
 		health_depleted.emit(get_parent())
 	pass
 
-func heal (heal_value: int) -> void:
+func heal(heal_value: int) -> void:
 	var old_health = current_health
 	current_health = clamp(current_health + heal_value, 0, max_health) #clamp prevents unintended overheal.
 	health_changed.emit(old_health, current_health, max_health)

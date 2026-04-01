@@ -1,6 +1,6 @@
 extends Node2D
 class_name Projectile
-# Main projectile controller.
+# Main projectile_data controller.
 # Responsible for:
 #   - Movement behavior
 #   - Lifetime handling
@@ -16,7 +16,7 @@ enum AnimationState {START,TRAVEL,END}
 #endregion
 
 @export_category("Projectile resource")
-@export var projectile: ProjectileBase # Data resource that defines projectile behavior.
+@export var projectile_data: ProjectileBase # Data resource that defines projectile_data behavior.
 
 @export_category("Projectile Values")
 ## Movement direction (in degres) for standard projectiles.
@@ -32,10 +32,14 @@ enum AnimationState {START,TRAVEL,END}
 @export var sprite : AnimatedSprite2D
 @export var lifetime_timer : Timer
 
+
+var detection_area : DetectionArea
+
 #region Internal Variables
 var current_state := AnimationState.START # Current animation state.
-var target_group: String # Group this projectile can interact with.
+var target_group: String # Group this projectile_data can interact with.
 var starting_position : Vector2 # Initial spawn position (used in lob calculations).
+var reference_scale : Vector2 # Projectile size set in projectile data. Used to calculate scale
 
 var targets = {}
 	# Stores targets hit:
@@ -44,13 +48,41 @@ var targets = {}
 
 const delete_time = 60 # Default lifetime if not using timed behavior.
 
+func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: String, 
+		_detection_area: DetectionArea) -> void:
+	
+	projectile_data = _projectile_base
+		
+	reference_scale = projectile_data.scale
+	direction = _origin.rotation
+	position = _origin.position
+	target_group = _target_group
+	detection_area = _detection_area
+
+	match projectile_data.movement_type:
+		projectile_data.MovementType.LOB:
+			var enemy = _detection_area.find_closest_target_at(_origin.global_position, 1000, _target_group)
+			if enemy != null:
+				var dir = (enemy.global_position - _origin.global_position).normalized()
+				target_position = _origin.global_position + dir * 800
+			else:
+				target_position = _origin.global_position + Vector2(800, 0)
+		
+		_:
+			# We don't set scale in lob since that's determined by a calculation
+			scale = projectile_data.scale 
+		pass
+	
+	pass
+
 func _ready() -> void:
 	starting_position = position
-	sprite.sprite_frames = projectile.sprite_frame
+	sprite.sprite_frames = projectile_data.sprite_frame
 
 	## Assigns timer value with special case for timed projectiles.
-	if projectile.lifetime_type == projectile.Lifetime.TIMED:
-		lifetime_timer.start(projectile.lifetime)
+	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
+		var lifetime = randf_range(projectile_data.lifetime_range.x, projectile_data.lifetime_range.y)
+		lifetime_timer.start(lifetime)
 	else:
 		lifetime_timer.start(delete_time)
 		lifetime_timer.timeout.connect(_on_death)
@@ -63,17 +95,17 @@ func _physics_process(delta: float) -> void:
 	
 	if current_state != AnimationState.TRAVEL: return
 	
-	if projectile.movement_type == projectile.MovementType.STANDARD:
+	if projectile_data.movement_type == projectile_data.MovementType.STANDARD:
 		update_standard(delta)
-	elif projectile.movement_type == projectile.MovementType.HOMING:
+	elif projectile_data.movement_type == projectile_data.MovementType.HOMING:
 		update_homing(delta)
-	elif projectile.movement_type == projectile.MovementType.LOB:
+	elif projectile_data.movement_type == projectile_data.MovementType.LOB:
 		update_lob(delta)
 	pass
 
 ## Straight movement in a fixed direction.
 func update_standard (delta: float): 
-	var projectile_speed = projectile.projectile_speed * delta
+	var projectile_speed = projectile_data.projectile_speed * delta
 	
 	rotation = direction
 	
@@ -81,11 +113,17 @@ func update_standard (delta: float):
 	position.y = position.y + projectile_speed * sin(direction)
 	pass
 
-## Moves toward a target (mouse position).
+## Moves toward a target
 func update_homing (delta: float):
-	var projectile_speed = projectile.projectile_speed * delta
+	var projectile_speed = projectile_data.projectile_speed * delta
 	
-	look_at(target.position) # Rotate toward target.
+	if target == null or not is_instance_valid(target):
+		target = detection_area.find_closest_target_at(position, 10000, target_group)
+	
+	if target == null or not is_instance_valid(target):
+		return			
+	
+	look_at(target.global_position) # Rotate toward target.
 	
 	position.x = position.x + projectile_speed * cos(rotation)
 	position.y = position.y + projectile_speed * sin(rotation)
@@ -93,7 +131,7 @@ func update_homing (delta: float):
 
 ## Arcing motion toward a target position.
 func update_lob (delta: float):
-	var projectile_speed = projectile.projectile_speed * delta
+	var projectile_speed = projectile_data.projectile_speed * delta
 	
 	var angle = position.angle_to_point(target_position)
 	
@@ -103,8 +141,8 @@ func update_lob (delta: float):
 	var scale_factor = numerator / denominator
 	# Used to fake arc height using scale.
 	
-	scale.x = sin(PI * scale_factor)*2 + 1
-	scale.y = sin(PI * scale_factor)*2 + 1
+	scale.x = sin(PI * scale_factor) * reference_scale.x + 1
+	scale.y = sin(PI * scale_factor) * reference_scale.y + 1
 	
 	#rotate(10*delta)
 	
@@ -118,11 +156,11 @@ func update_lob (delta: float):
 func _process(_delta: float) -> void:
 	if current_state != AnimationState.TRAVEL: return
 	
-	if projectile.lifetime_type == projectile.Lifetime.TIMED:
+	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
 		check_timed()
-	elif projectile.lifetime_type == projectile.Lifetime.COLLISION:
+	elif projectile_data.lifetime_type == projectile_data.Lifetime.COLLISION:
 		check_collision()
-	elif projectile.lifetime_type == projectile.Lifetime.TARGET:
+	elif projectile_data.lifetime_type == projectile_data.Lifetime.HOMING:
 		check_target()
 	pass
 
@@ -135,7 +173,7 @@ func check_timed():
 
 ## Ends after hitting enough targets.
 func check_collision():
-	if targets.size() < projectile.max_collisions: return
+	if targets.size() < projectile_data.max_collisions: return
 	
 	current_state = AnimationState.END
 
@@ -149,12 +187,12 @@ func check_target():
 
 #region Effects
 func apply_effect():
-	if projectile.damage_type == projectile.DamageType.DIRECT:
+	if projectile_data.damage_type == projectile_data.DamageType.DIRECT:
 		pass
-	elif projectile.effect_type == projectile.EffectType.HEALTH:
+	elif projectile_data.effect_type == projectile_data.EffectType.HEALTH:
 		for n in targets:
-			print(targets[n].name, " takes ", projectile.affect_value)
-	elif projectile.damage_type == projectile.DamageType.AOE:
+			print(targets[n].name, " takes ", projectile_data.affect_value)
+	elif projectile_data.damage_type == projectile_data.DamageType.AOE:
 		print("area of effect summoned at ", round(position))
 	pass
 #endregion
@@ -188,13 +226,13 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group(target_group) and !targets.has(area):
 		targets[area] = area.get_parent()
 		
-		if projectile.damage_type == projectile.DamageType.DIRECT:
-			if projectile.effect_type == projectile.EffectType.HEALTH:
-				print(targets[area].name, " takes ", projectile.affect_value)
-			elif projectile.effect_type == projectile.EffectType.SPEED:
-				print(targets[area].name, " slows by ", projectile.affect_value)
+		if projectile_data.damage_type == projectile_data.DamageType.DIRECT:
+			if projectile_data.effect_type == projectile_data.EffectType.HEALTH:
+				print(targets[area].name, " takes ", projectile_data.affect_value)
+			elif projectile_data.effect_type == projectile_data.EffectType.SPEED:
+				print(targets[area].name, " slows by ", projectile_data.affect_value)
 		
-		if projectile.movement_type == projectile.MovementType.HOMING:
+		if projectile_data.movement_type == projectile_data.MovementType.HOMING:
 			if target == targets[area]:
 				current_state = AnimationState.END
 				apply_effect()

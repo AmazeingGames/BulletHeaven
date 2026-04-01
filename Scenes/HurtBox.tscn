@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dluci775j6pop"]
+[gd_scene format=3 uid="uid://cnedwltuoi12d"]
 
 [ext_resource type="Script" uid="uid://judrd0mfm8yg" path="res://Scripts/HurtBox.gd" id="1_u7t2x"]
 [ext_resource type="Script" uid="uid://bunfc1f8smcsj" path="res://Scripts/HealthComponent.gd" id="2_okarh"]
