@@ -586,6 +586,7 @@ z_index = 1
 [node name="DetectionArea2" parent="Player" unique_id=1657825118 instance=ExtResource("7_5t7yc")]
 
 [node name="Weapon" parent="Player/DetectionArea2" unique_id=1626368722 node_paths=PackedStringArray("test_detection_area", "projectile_holder") instance=ExtResource("7_ngcqm")]
+rotation = 3.106686
 weapon_data = ExtResource("8_ws1hi")
 projectile_ref = ExtResource("9_xicox")
 test_detection_area = NodePath("..")

@@ -3,7 +3,7 @@ class_name WeaponData
 
 @export var stats: WeaponStats
 @export var upgrade_amount: WeaponStats
-@export var projectile_data: ProjectileBase
+@export var behavior: ProjectileBase
 
 @export_category("Behavior Stats")
 var rotation_amount: int # Amount in degrees to rotate the projectile's parent after each fire

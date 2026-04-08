@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	closest_enemy = player_detection_area.find_closest_target(weapon_data.stats.range, "Enemy")
 	
 	# Don't shoot if we don't have a target
-	if (weapon_data.projectile_data.movement_type == ProjectileBase.MovementType.HOMING
+	if (weapon_data.behavior.movement_type == ProjectileBase.MovementType.HOMING
 			&& (closest_enemy == null or not is_instance_valid(closest_enemy))):
 		return
 	
@@ -42,8 +42,10 @@ func level_up() -> void:
 func fire(closest_enemy : Node2D) -> void:
 	time_till_fire = weapon_data.stats.seconds_between_attacks
 	
-	var projectile = projectile_ref.instantiate()
-	self.rotation += weapon_data.rotation_amount
-	projectile_holder.add_child(projectile)
-	projectile.init(weapon_data.projectile_data, self, "Enemy", closest_enemy, weapon_data.stats)
+	for n in weapon_data.stats.projectiles_per_attack:
+		var projectile = projectile_ref.instantiate()
+		projectile_holder.add_child(projectile)
+		projectile.init(weapon_data.behavior, self, "Enemy", closest_enemy, weapon_data.stats)
+		self.rotation += weapon_data.behavior.rotation_amount
+		pass
 	pass

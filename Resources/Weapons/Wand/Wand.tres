@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b0v1jgxbms584"]
+
+[ext_resource type="Script" uid="uid://cplej304bd4a3" path="res://Scripts/Attack/WeaponData.gd" id="1_fbgtc"]
+[ext_resource type="Resource" uid="uid://bio0yflhfv5cl" path="res://Resources/Weapons/Wand/WandBehavior.tres" id="1_pv02u"]
+[ext_resource type="Resource" uid="uid://cr2e5ghnhwhx5" path="res://Resources/Weapons/Wand/WandStats.tres" id="3_hjbwa"]
+[ext_resource type="Resource" uid="uid://sfluda42pvmr" path="res://Resources/Weapons/Wand/WandUpgradeStats.tres" id="4_7m6he"]
+
+[resource]
+script = ExtResource("1_fbgtc")
+stats = ExtResource("3_hjbwa")
+upgrade_amount = ExtResource("4_7m6he")
+behavior = ExtResource("1_pv02u")
+metadata/_custom_type_script = "uid://cplej304bd4a3"

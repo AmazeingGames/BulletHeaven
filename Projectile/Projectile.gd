@@ -50,7 +50,7 @@ func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: Stri
 		closest_target: Node2D, stats: WeaponStats) -> void:
 	projectile_data = _projectile_base
 	
-	reference_scale = projectile_data.scale
+	reference_scale = stats.scale
 	direction = _origin.rotation
 	global_position = _origin.global_position
 	target_group = _target_group
@@ -69,10 +69,10 @@ func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: Stri
 		projectile_data.MovementType.HOMING:
 			assert(closest_target != null, "Closest target should not be null when the projectile is initialized.")
 			target = closest_target
-			scale = projectile_data.scale 
+			scale = weapon_stats.scale 
 		_:
 			# We don't set scale in lob since that's determined by a calculation
-			scale = projectile_data.scale 
+			scale = weapon_stats.scale 
 		pass
 
 	# Assigns timer value with special case for timed projectiles.
@@ -101,7 +101,7 @@ func _physics_process(delta: float) -> void:
 
 ## Straight movement in a fixed direction.
 func update_standard (delta: float): 
-	var projectile_speed = projectile_data.projectile_speed * delta
+	var projectile_speed = weapon_stats.projectile_speed * delta
 	
 	rotation = direction
 	
@@ -111,7 +111,7 @@ func update_standard (delta: float):
 
 ## Moves toward a target
 func update_homing (delta: float):
-	var projectile_speed = projectile_data.projectile_speed * delta
+	var projectile_speed = weapon_stats.projectile_speed * delta
 	
 	if target == null or not is_instance_valid(target):
 		return	
@@ -155,7 +155,7 @@ func _process(_delta: float) -> void:
 	elif projectile_data.lifetime_type == projectile_data.Lifetime.COLLISION:
 		check_collision()
 		
-	elif projectile_data.lifetime_type == projectile_data.Lifetime.HOMING:
+	elif projectile_data.lifetime_type == projectile_data.Lifetime.TARGET:
 		check_target()
 	pass
 
@@ -168,7 +168,7 @@ func check_timed():
 
 ## Ends after hitting enough targets.
 func check_collision():
-	if targets.size() < projectile_data.max_collisions: return
+	if targets.size() < weapon_stats.max_collisions: return
 	
 	current_state = AnimationState.END
 
@@ -224,7 +224,7 @@ func _on_area_entered(area: Area2D) -> void:
 		if projectile_data.damage_type == projectile_data.DamageType.DIRECT:
 			if projectile_data.effect_type == projectile_data.EffectType.HEALTH:
 				if (area.has_method("take_damage")):
-					area.take_damage(weapon_stats.damage)
+					area.take_damage(weapon_stats.effect_value)
 				# print(targets[area].name, " takes ", projectile_data.affect_value)
 			elif projectile_data.effect_type == projectile_data.EffectType.SPEED:
 				print(targets[area].name, " slows by ", projectile_data.affect_value)

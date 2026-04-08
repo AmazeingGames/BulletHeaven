@@ -20,7 +20,7 @@ enum EffectType {HEALTH,SPEED}
 	#   Health: affects the units health stat.
 	#   SpeedDebuff: affects the units speed stat.
 
-enum Lifetime {TIMED, COLLISION, HOMING}
+enum Lifetime { TIMED, COLLISION, TARGET }
 	# Projectile life behvaior types:
 	#   Timed: Projectile is destroyed after a certain amount of time.
 	#   Collision: Projectile is destoryed after a certain amount of collisions.
@@ -33,14 +33,8 @@ enum Lifetime {TIMED, COLLISION, HOMING}
 @export var damage_type: DamageType
 @export var effect_type: EffectType
 @export var lifetime_type : Lifetime
-
-@export_category("Projectile Properties")
-@export var projectile_speed: float # pixels per second
-@export var affect_value: float
-@export var lifetime_range: Vector2
-# @export var homing_range: int
-@export var max_collisions: int
-@export var scale: Vector2
+## The amount to rotate the projectile spawner after each fire.
+@export var rotation_amount: int
 
 @export_category("Exported References")
 @export var sprite_frame: SpriteFrames
