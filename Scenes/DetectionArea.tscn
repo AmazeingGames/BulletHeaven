@@ -2,14 +2,5 @@
 
 [ext_resource type="Script" uid="uid://pv8hxq6e5hjk" path="res://Scripts/DetectionArea.gd" id="1_hvuuj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tfjs2"]
-radius = 100.0
-
-[node name="DetectionArea" type="Area2D" unique_id=1657825118 node_paths=PackedStringArray("collision_shape", "node")]
-collision_mask = 7
+[node name="DetectionArea" type="Area2D" unique_id=1527464762]
 script = ExtResource("1_hvuuj")
-collision_shape = NodePath("SearchRadius")
-node = NodePath(".")
-
-[node name="SearchRadius" type="CollisionShape2D" parent="." unique_id=1623264992]
-shape = SubResource("CircleShape2D_tfjs2")

@@ -1,7 +1,5 @@
 extends Area2D
 class_name DetectionArea
-@export var collision_shape: CollisionShape2D
-@export var node: Node2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,7 +11,7 @@ func _process(delta: float) -> void:
 	# find_closest_target(50, "Player")
 	pass
 
-func find_closest_target_at(origin:Vector2, radius:float, group:String) -> Node2D:
+func find_closest_target_from(origin:Vector2, radius:float, group:String) -> Node2D:
 	var space_state = get_world_2d().direct_space_state
 	
 	var shape = CircleShape2D.new()
@@ -25,7 +23,7 @@ func find_closest_target_at(origin:Vector2, radius:float, group:String) -> Node2
 	query.collide_with_bodies = true
 	query.collide_with_areas = true
 	
-	var results = space_state.intersect_shape(query, 512)
+	var results = space_state.intersect_shape(query, 1028)
 	
 	var closest_distance = INF
 	var closest_target: Node2D = null
@@ -45,4 +43,4 @@ func find_closest_target_at(origin:Vector2, radius:float, group:String) -> Node2
 	return closest_target
 
 func find_closest_target(radius: int, group:String) -> Node2D:
-	return find_closest_target_at(transform.get_origin(), radius, group)
+	return find_closest_target_from(transform.get_origin(), radius, group)

@@ -21,14 +21,14 @@ detection_area = NodePath("DetectionArea")
 wait_time = 0.5
 autostart = true
 
-[node name="Bomb_Summoner" type="Sprite2D" parent="." unique_id=585323040]
+[node name="Bomb_Summoner" type="Sprite2D" parent="." unique_id=585323040 groups=["Enemy"]]
 position = Vector2(157, 16)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ncrf7")
 
-[node name="Area2D" type="Area2D" parent="Bomb_Summoner" unique_id=236779199]
+[node name="Area2D" type="Area2D" parent="Bomb_Summoner" unique_id=236779199 groups=["Enemy"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bomb_Summoner/Area2D" unique_id=1570998355]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bomb_Summoner/Area2D" unique_id=1570998355 groups=["Enemy"]]
 shape = SubResource("RectangleShape2D_ncrf7")
 
 [node name="Bullet_Summoner" type="Sprite2D" parent="." unique_id=515744122]
@@ -42,15 +42,15 @@ texture = ExtResource("2_ncrf7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_Summoner/Area2D" unique_id=2065587026]
 shape = SubResource("CircleShape2D_pc4ip")
 
-[node name="Slime_Summoner" type="Sprite2D" parent="." unique_id=1068841248 groups=["Enemy"]]
+[node name="Slime_Summoner" type="Sprite2D" parent="." unique_id=1068841248 groups=["Player"]]
 self_modulate = Color(0.22327733, 1.2239997, 0.20077533, 1)
 position = Vector2(1016, 7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ncrf7")
 
-[node name="Area2D" type="Area2D" parent="Slime_Summoner" unique_id=505626910 groups=["Enemy"]]
+[node name="Area2D" type="Area2D" parent="Slime_Summoner" unique_id=505626910 groups=["Player"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime_Summoner/Area2D" unique_id=1419771344 groups=["Enemy"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime_Summoner/Area2D" unique_id=1419771344 groups=["Player"]]
 shape = SubResource("RectangleShape2D_ncrf7")
 
 [node name="DetectionArea" parent="." unique_id=1657825118 instance=ExtResource("3_pc4ip")]

@@ -20,7 +20,8 @@ func _process(delta: float) -> void:
 	time_till_fire -= delta
 	closest_enemy = player_detection_area.find_closest_target(weapon_data.stats.range, "Enemy")
 	
-	if (weapon_data.needs_target_to_fire 
+	# Don't shoot if we don't have a target
+	if (weapon_data.projectile_data.movement_type == ProjectileBase.MovementType.HOMING
 			&& (closest_enemy == null or not is_instance_valid(closest_enemy))):
 		return
 	

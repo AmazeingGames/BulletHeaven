@@ -43,12 +43,13 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	var bullet = projectile_ref.instantiate()
 	bullet_summoner.rotation = spawn_angle
-	bullet.init(bullet_resource, bullet_summoner, "Enemy", detection_area)
+	bullet.init(bullet_resource, bullet_summoner, "Enemy", null)
 	add_child(bullet)
 	
 	if bomb_break > 2:
+		var closest_enemy = detection_area.find_closest_target_from(bomb_lobber.position, 1000, "Player")
 		var lob = projectile_ref.instantiate()
-		lob.init(bomb_resource, bomb_lobber, "Enemy", detection_area)
+		lob.init(bomb_resource, bomb_lobber, "Player", closest_enemy)
 		
 		add_child(lob)
 		bomb_break = 0
@@ -56,9 +57,10 @@ func _on_timer_timeout() -> void:
 		bomb_break += 1
 	
 	if slime_break > 3:
+		var closest_enemy = detection_area.find_closest_target_from(slime_summoner.position, 10000, "Enemy")
 		var slime = projectile_ref.instantiate()
-		slime.init(slime_resource, slime_summoner, "Enemy", detection_area)
-
+		slime.init(slime_resource, slime_summoner, "Enemy", closest_enemy)
+		
 		add_child(slime)
 		slime_break = 0
 	else:

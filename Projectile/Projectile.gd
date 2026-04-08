@@ -32,9 +32,6 @@ enum AnimationState {START,TRAVEL,END}
 @export var sprite : AnimatedSprite2D
 @export var lifetime_timer : Timer
 
-
-var detection_area : DetectionArea
-
 #region Internal Variables
 var current_state := AnimationState.START # Current animation state.
 var target_group: String # Group this projectile_data can interact with.
@@ -63,9 +60,11 @@ func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: Stri
 				Ensure `RequiresTarget` is set to true on WeaponData resource.")
 			var dir = (closest_target.global_position - _origin.global_position).normalized()
 			target_position = _origin.global_position + dir * 800
+
 		projectile_data.MovementType.HOMING:
-			assert(closest_target != null, "Closest target should not be null when the projectile is initialized. 
-				Ensure `RequiresTarget` is set to true on WeaponData resource.")
+			assert(closest_target != null, "Closest target should not be null when the projectile is initialized.")
+			target = closest_target
+			scale = projectile_data.scale 
 		_:
 			# We don't set scale in lob since that's determined by a calculation
 			scale = projectile_data.scale 
@@ -74,7 +73,7 @@ func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: Stri
 	starting_position = global_position
 	sprite.sprite_frames = projectile_data.sprite_frame
 
-	## Assigns timer value with special case for timed projectiles.
+	# Assigns timer value with special case for timed projectiles.
 	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
 		var lifetime = randf_range(projectile_data.lifetime_range.x, projectile_data.lifetime_range.y)
 		lifetime_timer.start(lifetime)
@@ -113,10 +112,7 @@ func update_homing (delta: float):
 	var projectile_speed = projectile_data.projectile_speed * delta
 	
 	if target == null or not is_instance_valid(target):
-		target = detection_area.find_closest_target_at(global_position, 10000, target_group)
-	
-	if target == null or not is_instance_valid(target):
-		return			
+		return	
 	
 	look_at(target.global_position) # Rotate toward target.
 	

@@ -5,10 +5,12 @@
 
 [resource]
 script = ExtResource("1_cr4vo")
+movement_type = 1
 lifetime_type = 1
 projectile_speed = 300.0
 affect_value = 10.0
 lifetime_range = Vector2(1.6, 1.6)
+homing_range = 100
 max_collisions = 1
 scale = Vector2(2, 2)
 sprite_frame = ExtResource("2_eynpp")
