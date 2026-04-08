@@ -16,17 +16,17 @@ enum AnimationState {START,TRAVEL,END}
 #endregion
 
 @export_category("Projectile resource")
-@export var projectile_data: ProjectileBase # Data resource that defines projectile_data behavior.
+var projectile_data: ProjectileBase # Data resource that defines projectile_data behavior.
 
 @export_category("Projectile Values")
 ## Movement direction (in degres) for standard projectiles.
 @export var direction : float = 45
 
 ## Target global_position (used for lob).
-@export var target_position : Vector2
+var target_position : Vector2
 
 ## Target global_position (used for homing).
-@export var target : Node2D
+var target : Node2D
 
 @export_category("Exported References")
 @export var sprite : AnimatedSprite2D
@@ -37,6 +37,7 @@ var current_state := AnimationState.START # Current animation state.
 var target_group: String # Group this projectile_data can interact with.
 var starting_position : Vector2 # Initial spawn global_position (used in lob calculations).
 var reference_scale : Vector2 # Projectile size set in projectile data. Used to calculate scale
+var weapon_stats : WeaponStats # Stats that upgrade over time, like damage, range, size, or speed
 
 var targets = {}
 	# Stores targets hit:
@@ -46,13 +47,17 @@ var targets = {}
 const delete_time = 60 # Default lifetime if not using timed behavior.
 
 func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: String, 
-		closest_target: Node2D) -> void:
+		closest_target: Node2D, stats: WeaponStats) -> void:
 	projectile_data = _projectile_base
 	
 	reference_scale = projectile_data.scale
 	direction = _origin.rotation
 	global_position = _origin.global_position
 	target_group = _target_group
+	weapon_stats = stats
+	
+	starting_position = global_position
+	sprite.sprite_frames = projectile_data.sprite_frame
 	
 	match projectile_data.movement_type:
 		projectile_data.MovementType.LOB:
@@ -69,9 +74,6 @@ func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: Stri
 			# We don't set scale in lob since that's determined by a calculation
 			scale = projectile_data.scale 
 		pass
-	
-	starting_position = global_position
-	sprite.sprite_frames = projectile_data.sprite_frame
 
 	# Assigns timer value with special case for timed projectiles.
 	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
@@ -221,7 +223,9 @@ func _on_area_entered(area: Area2D) -> void:
 		
 		if projectile_data.damage_type == projectile_data.DamageType.DIRECT:
 			if projectile_data.effect_type == projectile_data.EffectType.HEALTH:
-				print(targets[area].name, " takes ", projectile_data.affect_value)
+				if (area.has_method("take_damage")):
+					area.take_damage(weapon_stats.damage)
+				# print(targets[area].name, " takes ", projectile_data.affect_value)
 			elif projectile_data.effect_type == projectile_data.EffectType.SPEED:
 				print(targets[area].name, " slows by ", projectile_data.affect_value)
 		
@@ -229,5 +233,7 @@ func _on_area_entered(area: Area2D) -> void:
 			if target == targets[area]:
 				current_state = AnimationState.END
 				apply_effect()
-	
 #endregion
+
+
+	

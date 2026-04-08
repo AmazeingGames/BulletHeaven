@@ -28,6 +28,7 @@ project/assembly_name="BulletHeaven"
 Player=""
 Enemy=""
 Hitbox=""
+Projectile="Projectiles fired by the player that damages enemies."
 
 [input]
 

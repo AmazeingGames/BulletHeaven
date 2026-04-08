@@ -60,7 +60,7 @@ hue_variation_max = 0.29999998
 
 [sub_resource type="Animation" id="Animation_6bs3c"]
 resource_name = "Die"
-length = 0.8
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -80,10 +80,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, -2),
 "update": 0,
-"values": [0.0, 6.283185307179586]
+"values": [0.0, 4.014257279586958]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -104,10 +104,36 @@ tracks/3/path = NodePath("Sprite:material:shader_parameter/flash_value")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.56666666),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HurtBox:process_mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_mo1ky"]
@@ -175,26 +201,38 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sprite:position")
+tracks/5/path = NodePath("Sprite:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(1, 1)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite:scale")
+tracks/6/path = NodePath("Sprite:offset")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, -60)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HurtBox:process_mode")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_uoxpr"]
@@ -204,26 +242,26 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.25, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 60), Vector2(0, 58.5), Vector2(0, 61), Vector2(0, 60)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.04, 0.97), Vector2(0.97, 1.04), Vector2(1.04, 0.97), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -60), Vector2(0, -58.5), Vector2(0, -61), Vector2(0, -60)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uoxpr"]
@@ -335,7 +373,7 @@ gpu_particles_2d = NodePath("GPUParticles2D")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=333516098]
 material = SubResource("ShaderMaterial_6bs3c")
 sprite_frames = SubResource("SpriteFrames_ne65n")
-frame_progress = 0.9063721
+frame_progress = 0.75090164
 offset = Vector2(0, -60)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=268590045 groups=["Enemy", "Hitbox"]]
@@ -344,13 +382,14 @@ shape = SubResource("CircleShape2D_ne65n")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=19032163]
 script = ExtResource("2_wovta")
-max_health = 10
+max_health = 5
 max_invincibility_frames = 15
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 
-[node name="HurtBox" parent="." unique_id=1337371345 groups=["Enemy"] instance=ExtResource("5_1exfc")]
+[node name="HurtBox" parent="." unique_id=1337371345 node_paths=PackedStringArray("health_component") groups=["Enemy"] instance=ExtResource("5_1exfc")]
 position = Vector2(0, -59.999992)
 scale = Vector2(8, 8.120046)
+health_component = NodePath("../HealthComponent")
 
 [node name="StatComponent" type="Node" parent="." unique_id=824622379]
 script = ExtResource("5_mo1ky")

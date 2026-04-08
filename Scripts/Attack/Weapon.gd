@@ -45,5 +45,5 @@ func fire(closest_enemy : Node2D) -> void:
 	var projectile = projectile_ref.instantiate()
 	self.rotation += weapon_data.rotation_amount
 	projectile_holder.add_child(projectile)
-	projectile.init(weapon_data.projectile_data, self, "Enemy", closest_enemy)
+	projectile.init(weapon_data.projectile_data, self, "Enemy", closest_enemy, weapon_data.stats)
 	pass

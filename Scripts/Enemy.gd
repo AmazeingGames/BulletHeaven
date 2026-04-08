@@ -37,6 +37,11 @@ var personal_space : Dictionary[String,Enemy]
 
 var smooth_direction = Vector2 (0.0,0.0)
 
+func _ready() -> void:
+	health.health_changed.connect(_on_health_changed)
+	health.health_depleted.connect(_on_health_depleted)
+	pass
+
 func _process(delta: float) -> void:
 	if !target: return
 	match current_state:
@@ -72,7 +77,6 @@ func update_follow(delta):
 		position -= smooth_direction * Vector2(speed, speed)
 	else:
 		current_state = EnemyState.IDLE
-		print("idle")
 	pass
 
 func update_hurt():
@@ -127,28 +131,20 @@ func _on_push_zone_area_exited(area: Area2D) -> void:
 		personal_space.erase(enemy.name)
 	pass
 
-func _ready() -> void:
-	health.health_changed.connect(_on_health_changed)
-	health.health_depleted.connect(_on_health_depleted)
-	
-	pass # Replace with function body.
-
 func _on_health_changed(old_value, new_value, max_value):
-	var tookDamage = old_value > new_value
-	var healed = new_value > old_value
+	var did_take_damage = old_value > new_value
+	var did_heal = new_value > old_value
 	
-	if (tookDamage):
+	if (did_take_damage):
 		# Plays SFX, creates particles, flashes white
-		# I'm not sure the best way to set this up to account for taking damage 
-		#   multiple times in short succession
 		effect_player.play("TakeDamage")
 		gpu_particles_2d.restart()
 		pass
-	else: if (healed):
+	else: if (did_heal):
 		pass
 	pass
 
-func _on_health_depleted():
+func _on_health_depleted(unit : Node2D):
 	animation_player.play("Die")
 	current_state = EnemyState.DEATH
 	pass

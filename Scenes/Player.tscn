@@ -225,7 +225,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
 radius = 8.062258
 
-[node name="Player" type="CharacterBody2D" unique_id=1394852611]
+[node name="Player" type="CharacterBody2D" unique_id=1394852611 groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 movement_speed = 200.0
@@ -247,9 +247,10 @@ position = Vector2(0, 12)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_dewec")
 
-[node name="HurtBox" parent="." unique_id=1337371345 instance=ExtResource("5_5ixxa")]
+[node name="HurtBox" parent="." unique_id=1337371345 groups=["Player"] instance=ExtResource("5_5ixxa")]
 position = Vector2(0, 11)
 scale = Vector2(0.6, 0.6)
+damaging_group = "Enemy"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1926810151]
 zoom = Vector2(2, 2)

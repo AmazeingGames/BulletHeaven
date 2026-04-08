@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	# find_closest_target(50, "Player")
 	pass
 
-func find_closest_target_from(origin:Vector2, radius:float, group:String) -> Node2D:
+func find_closest_target_from(origin:Vector2, radius:float, group:String, require_collsion_shape:bool = true) -> Node2D:
 	var space_state = get_world_2d().direct_space_state
 	
 	var shape = CircleShape2D.new()
@@ -32,6 +32,8 @@ func find_closest_target_from(origin:Vector2, radius:float, group:String) -> Nod
 	for result in results:
 		var body = result.collider
 		if body.is_in_group(group) and is_instance_valid(body):
+			# if require_collsion_shape && collision_shape != null:
+				# continue
 			validResults += 1
 			# global_position might be more concise
 			var square_distance = transform.get_origin().distance_squared_to(body.global_position)
@@ -42,5 +44,5 @@ func find_closest_target_from(origin:Vector2, radius:float, group:String) -> Nod
 	# print_debug(validResults)
 	return closest_target
 
-func find_closest_target(radius: int, group:String) -> Node2D:
-	return find_closest_target_from(global_position, radius, group)
+func find_closest_target(radius: int, group:String, require_collision_shape:bool = true) -> Node2D:
+	return find_closest_target_from(global_position, radius, group, require_collision_shape)

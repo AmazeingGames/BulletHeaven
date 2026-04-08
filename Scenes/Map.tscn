@@ -580,7 +580,7 @@ offset_bottom = -96.0
 position = Vector2(59, 14)
 shape = SubResource("CapsuleShape2D_00287")
 
-[node name="Player" parent="." unique_id=1394852611 groups=["Player"] instance=ExtResource("6_00287")]
+[node name="Player" parent="." unique_id=1394852611 instance=ExtResource("6_00287")]
 z_index = 1
 
 [node name="DetectionArea2" parent="Player" unique_id=1657825118 instance=ExtResource("7_5t7yc")]
@@ -593,5 +593,6 @@ projectile_holder = NodePath("../../../ProjectileHolder")
 
 [node name="ProjectileHolder" type="Node2D" parent="." unique_id=890135303]
 
-[node name="Enemy" parent="." unique_id=2134776135 instance=ExtResource("5_r08cw")]
+[node name="Enemy" parent="." unique_id=2134776135 node_paths=PackedStringArray("target") instance=ExtResource("5_r08cw")]
 position = Vector2(-138, 65)
+target = NodePath("../Player")

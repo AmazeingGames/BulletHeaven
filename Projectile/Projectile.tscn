@@ -17,10 +17,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_hl16p"]
 radius = 2.0
 
-[node name="Projectile" type="Area2D" unique_id=912711085 node_paths=PackedStringArray("sprite", "lifetime_timer")]
+[node name="Projectile" type="Area2D" unique_id=912711085 node_paths=PackedStringArray("sprite", "lifetime_timer") groups=["Projectile"]]
 texture_filter = 1
 script = ExtResource("1_ghnax")
-target_position = Vector2(1000, 700)
 sprite = NodePath("Sprite")
 lifetime_timer = NodePath("Lifetime")
 
@@ -30,7 +29,7 @@ sprite_frames = SubResource("SpriteFrames_whj0l")
 [node name="Lifetime" type="Timer" parent="." unique_id=1176572797]
 one_shot = true
 
-[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=672746376]
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=672746376 groups=["Projectile"]]
 shape = SubResource("CircleShape2D_hl16p")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
