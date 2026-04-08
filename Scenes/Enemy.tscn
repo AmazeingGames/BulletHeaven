@@ -356,7 +356,7 @@ _data = {
 &"TakeDamage": SubResource("Animation_idouy")
 }
 
-[node name="Enemy" type="StaticBody2D" unique_id=2134776135 node_paths=PackedStringArray("health", "stats", "sprite", "hurtbox", "push_zone", "animation_player", "effect_player", "gpu_particles_2d") groups=["Enemy"]]
+[node name="Enemy" type="StaticBody2D" unique_id=2134776135 node_paths=PackedStringArray("health", "stats", "sprite", "hurtbox", "push_zone", "animation_player", "effect_player", "gpu_particles_2d")]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 collision_mask = 2
@@ -373,7 +373,7 @@ gpu_particles_2d = NodePath("GPUParticles2D")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=333516098]
 material = SubResource("ShaderMaterial_6bs3c")
 sprite_frames = SubResource("SpriteFrames_ne65n")
-frame_progress = 0.75090164
+frame_progress = 0.46981007
 offset = Vector2(0, -60)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=268590045 groups=["Enemy", "Hitbox"]]

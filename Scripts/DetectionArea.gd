@@ -33,7 +33,7 @@ func find_closest_target_from(origin:Vector2, radius:float, group:String, requir
 		var body = result.collider
 		if body.is_in_group(group) and is_instance_valid(body):
 			# if require_collsion_shape && collision_shape != null:
-				# continue
+				# ssacontinue
 			validResults += 1
 			# global_position might be more concise
 			var square_distance = transform.get_origin().distance_squared_to(body.global_position)
