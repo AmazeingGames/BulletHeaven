@@ -8,5 +8,5 @@ scale = Vector2(1, 1)
 damage = 1
 seconds_between_attacks = 0.5
 projectiles_per_attack = 1
-range = 100
+range = 200
 metadata/_custom_type_script = "uid://b7b1rvv44u4qs"

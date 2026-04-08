@@ -43,4 +43,4 @@ func find_closest_target_from(origin:Vector2, radius:float, group:String) -> Nod
 	return closest_target
 
 func find_closest_target(radius: int, group:String) -> Node2D:
-	return find_closest_target_from(transform.get_origin(), radius, group)
+	return find_closest_target_from(global_position, radius, group)

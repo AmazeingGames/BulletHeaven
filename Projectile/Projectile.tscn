@@ -29,7 +29,6 @@ sprite_frames = SubResource("SpriteFrames_whj0l")
 
 [node name="Lifetime" type="Timer" parent="." unique_id=1176572797]
 one_shot = true
-autostart = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=672746376]
 shape = SubResource("CircleShape2D_hl16p")

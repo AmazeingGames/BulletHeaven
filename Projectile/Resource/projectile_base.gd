@@ -38,7 +38,7 @@ enum Lifetime {TIMED, COLLISION, HOMING}
 @export var projectile_speed: float # pixels per second
 @export var affect_value: float
 @export var lifetime_range: Vector2
-@export var homing_range: int
+# @export var homing_range: int
 @export var max_collisions: int
 @export var scale: Vector2
 

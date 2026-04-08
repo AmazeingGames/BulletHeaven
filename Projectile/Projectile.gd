@@ -149,8 +149,10 @@ func _process(_delta: float) -> void:
 	
 	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
 		check_timed()
+		
 	elif projectile_data.lifetime_type == projectile_data.Lifetime.COLLISION:
 		check_collision()
+		
 	elif projectile_data.lifetime_type == projectile_data.Lifetime.HOMING:
 		check_target()
 	pass
