@@ -39,7 +39,7 @@ func find_closest_target_from(origin:Vector2, radius:float, group:String) -> Nod
 				closest_distance = square_distance
 				closest_target = result.collider
 	
-	print_debug(validResults)
+	# print_debug(validResults)
 	return closest_target
 
 func find_closest_target(radius: int, group:String) -> Node2D:

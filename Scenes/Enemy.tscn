@@ -338,7 +338,7 @@ sprite_frames = SubResource("SpriteFrames_ne65n")
 frame_progress = 0.9063721
 offset = Vector2(0, -60)
 
-[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=268590045 groups=["Hitbox"]]
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=268590045 groups=["Enemy", "Hitbox"]]
 shape = SubResource("CircleShape2D_ne65n")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=19032163]
@@ -347,7 +347,7 @@ max_health = 10
 max_invincibility_frames = 15
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 
-[node name="HurtBox" parent="." unique_id=1337371345 instance=ExtResource("5_1exfc")]
+[node name="HurtBox" parent="." unique_id=1337371345 groups=["Enemy"] instance=ExtResource("5_1exfc")]
 scale = Vector2(8, 8.120046)
 
 [node name="StatComponent" type="Node" parent="." unique_id=824622379]
