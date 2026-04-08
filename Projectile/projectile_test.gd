@@ -9,6 +9,7 @@ extends Node2D
 @export var bullet_summoner : Sprite2D
 @export var slime_summoner : Sprite2D
 @export var detection_area: DetectionArea
+@export var generic_stats: WeaponStats
 
 var spawn_angle : float
 var bomb_spawn_position = Vector2 (200, 0)
@@ -43,13 +44,13 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	var bullet = projectile_ref.instantiate()
 	bullet_summoner.rotation = spawn_angle
-	bullet.init(bullet_resource, bullet_summoner, "Enemy", null)
+	bullet.init(bullet_resource, bullet_summoner, "Enemy", null, generic_stats)
 	add_child(bullet)
 	
 	if bomb_break > 2:
 		var closest_enemy = detection_area.find_closest_target_from(bomb_lobber.position, 1000, "Player")
 		var lob = projectile_ref.instantiate()
-		lob.init(bomb_resource, bomb_lobber, "Player", closest_enemy)
+		lob.init(bomb_resource, bomb_lobber, "Player", closest_enemy, generic_stats)
 		
 		add_child(lob)
 		bomb_break = 0
@@ -59,7 +60,7 @@ func _on_timer_timeout() -> void:
 	if slime_break > 3:
 		var closest_enemy = detection_area.find_closest_target_from(slime_summoner.position, 10000, "Enemy")
 		var slime = projectile_ref.instantiate()
-		slime.init(slime_resource, slime_summoner, "Enemy", closest_enemy)
+		slime.init(slime_resource, slime_summoner, "Enemy", closest_enemy, generic_stats)
 		
 		add_child(slime)
 		slime_break = 0

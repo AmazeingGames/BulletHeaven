@@ -382,7 +382,7 @@ shape = SubResource("CircleShape2D_ne65n")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=19032163]
 script = ExtResource("2_wovta")
-max_health = 5
+max_health = 30
 max_invincibility_frames = 15
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 
