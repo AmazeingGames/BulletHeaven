@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://vqvysleayonm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgk1p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8rtw4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ndvr4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ymwl"]
+
+[node name="Hud" type="Control" unique_id=882746955]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Level Items" type="VBoxContainer" parent="." unique_id=1306246804]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -65.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="TopSpace" type="HSeparator" parent="Level Items" unique_id=730699037]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mgk1p")
+
+[node name="TextContainer" type="HBoxContainer" parent="Level Items" unique_id=1826288711]
+layout_mode = 2
+
+[node name="LeftSpace" type="VSeparator" parent="Level Items/TextContainer" unique_id=688730049]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8rtw4")
+
+[node name="LevelHBoc" type="HBoxContainer" parent="Level Items/TextContainer" unique_id=979507030]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LevelText" type="Label" parent="Level Items/TextContainer/LevelHBoc" unique_id=987647953]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Level"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PlayerLevel" type="Label" parent="Level Items/TextContainer/LevelHBoc" unique_id=1560234683]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "20"
+vertical_alignment = 1
+
+[node name="RightSpace" type="VSeparator" parent="Level Items/TextContainer" unique_id=913186321]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8rtw4")
+
+[node name="LevelBar" type="HBoxContainer" parent="Level Items" unique_id=1348695968]
+layout_mode = 2
+
+[node name="LeftSpace" type="VSeparator" parent="Level Items/LevelBar" unique_id=2082111156]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.01
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8rtw4")
+
+[node name="XPBar" type="ProgressBar" parent="Level Items/LevelBar" unique_id=1701223587]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.33
+show_percentage = false
+
+[node name="RightSpace" type="VSeparator" parent="Level Items/LevelBar" unique_id=1148672233]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.01
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8rtw4")
+
+[node name="BottomSpace" type="HSeparator" parent="Level Items" unique_id=662115344]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mgk1p")
+
+[node name="Top Items" type="HBoxContainer" parent="." unique_id=1968986569]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="PlayerStatus" type="MarginContainer" parent="Top Items" unique_id=512955207]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="StatusVBox" type="VBoxContainer" parent="Top Items/PlayerStatus" unique_id=2056507638]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HealthPannel" type="PanelContainer" parent="Top Items/PlayerStatus/StatusVBox" unique_id=276336070]
+layout_mode = 2
+
+[node name="HealthMargin" type="MarginContainer" parent="Top Items/PlayerStatus/StatusVBox/HealthPannel" unique_id=2059736744]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HealthBar" type="ProgressBar" parent="Top Items/PlayerStatus/StatusVBox/HealthPannel/HealthMargin" unique_id=1438064904]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+show_percentage = false
+
+[node name="SpecialHBoc" type="HBoxContainer" parent="Top Items/PlayerStatus/StatusVBox" unique_id=781911888]
+layout_mode = 2
+
+[node name="SpecialPanel" type="PanelContainer" parent="Top Items/PlayerStatus/StatusVBox/SpecialHBoc" unique_id=241700080]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpecialMargin" type="MarginContainer" parent="Top Items/PlayerStatus/StatusVBox/SpecialHBoc/SpecialPanel" unique_id=1537021976]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MarginBar" type="ProgressBar" parent="Top Items/PlayerStatus/StatusVBox/SpecialHBoc/SpecialPanel/SpecialMargin" unique_id=1759038980]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+show_percentage = false
+
+[node name="RightSpace" type="VSeparator" parent="Top Items/PlayerStatus/StatusVBox/SpecialHBoc" unique_id=905321963]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ndvr4")
+
+[node name="MiddleSpace" type="VSeparator" parent="Top Items" unique_id=2100204183]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0ymwl")
+
+[node name="Wave" type="MarginContainer" parent="Top Items" unique_id=1553919710]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="WaveVBox" type="VBoxContainer" parent="Top Items/Wave" unique_id=1979427197]
+layout_mode = 2
+
+[node name="WaveText" type="Label" parent="Top Items/Wave/WaveVBox" unique_id=1877527105]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Wave"
+horizontal_alignment = 1
+
+[node name="WaveText2" type="Label" parent="Top Items/Wave/WaveVBox" unique_id=1174309610]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
