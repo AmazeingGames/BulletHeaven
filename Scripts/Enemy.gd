@@ -34,10 +34,14 @@ enum EnemyState {IDLE, FOLLOW, HURT, ATTACK, DEATH}
 var current_state : EnemyState
 var personal_space : Dictionary[String,Enemy]
 
+@export var testing_experience_factory: ExperienceFactory
+
+var experience_factory : ExperienceFactory
 
 var smooth_direction = Vector2 (0.0,0.0)
 
 func _ready() -> void:
+	init(testing_experience_factory)
 	health.health_changed.connect(_on_health_changed)
 	health.health_depleted.connect(_on_health_depleted)
 	pass
@@ -56,6 +60,11 @@ func _process(delta: float) -> void:
 	
 	if current_stun > 0:
 		current_stun = current_stun - 1
+	pass
+
+## Requires a reference to experience factory to create experience on death.
+func init(_experience_factory : ExperienceFactory) -> void:
+	experience_factory = _experience_factory
 	pass
 
 func update_idle():
@@ -147,4 +156,9 @@ func _on_health_changed(old_value, new_value, max_value):
 func _on_health_depleted(unit : Node2D):
 	animation_player.play("Die")
 	current_state = EnemyState.DEATH
+	pass
+
+## Create experience. Called from the animation player.
+func _on_death_animation_finish() -> void:
+	experience_factory.create_experience(global_position)
 	pass

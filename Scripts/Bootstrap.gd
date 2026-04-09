@@ -3,11 +3,15 @@ extends Node
 @export var player : Player
 @export var ui_manager : UIManager
 @export var weapon_supplier : WeaponSupplier
+@export var experience_tracker: ExperienceTracker
+@export var experience_factory: ExperienceFactory
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ui_manager.init(player.find_child("HealthComponent"), weapon_supplier.weapons_data)
-	weapon_supplier.init(player.find_child("DetectionArea"), ui_manager.upgrade_menu.weapon_selections)
+	ui_manager.init(player.health_component, weapon_supplier.weapons_data, experience_tracker)
+	weapon_supplier.init(player.detection_area, ui_manager.get_weapon_selections())
+	experience_factory.init(experience_tracker)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

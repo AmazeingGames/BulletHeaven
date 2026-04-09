@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var movement_speed : float = 500
 @onready var animated_sprite := $AnimatedSprite2D
 @onready var health_component := $HealthComponent
+@export var detection_area: DetectionArea
 
 var characterDirection : Vector2
 

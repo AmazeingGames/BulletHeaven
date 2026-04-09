@@ -1,14 +1,22 @@
 [gd_scene format=3 uid="uid://b7nmu4jxtkh3i"]
 
 [ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="1_hc6sy"]
+[ext_resource type="Script" uid="uid://confnx8b2tvif" path="res://Scripts/Experience.gd" id="1_n8qja"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c8hcu"]
 radius = 61.522354
 
 [node name="Experience" type="Area2D" unique_id=802510279]
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_n8qja")
+experience_amount = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1162890853]
 texture = ExtResource("1_hc6sy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2062191386]
 shape = SubResource("CircleShape2D_c8hcu")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

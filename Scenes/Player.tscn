@@ -225,10 +225,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
 radius = 8.062258
 
-[node name="Player" type="CharacterBody2D" unique_id=1394852611 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1394852611 node_paths=PackedStringArray("detection_area") groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 movement_speed = 200.0
+detection_area = NodePath("DetectionArea")
 
 [node name="DetectionArea" parent="." unique_id=1657825118 instance=ExtResource("2_52ee3")]
 

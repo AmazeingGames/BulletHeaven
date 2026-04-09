@@ -128,11 +128,11 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.45),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"queue_free"
+"method": &"_on_death_animation_finish"
 }]
 }
 
@@ -382,7 +382,7 @@ shape = SubResource("CircleShape2D_ne65n")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=19032163]
 script = ExtResource("2_wovta")
-max_health = 100
+max_health = 3
 max_invincibility_frames = 15
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 

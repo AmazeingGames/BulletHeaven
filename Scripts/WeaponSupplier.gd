@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 
 func init(detection_area: DetectionArea, weapon_selections: Array[WeaponSelection]) -> void:
 	player_detection_area = detection_area
-	supply_weapon(weapons_data[2])
+	supply_weapon(weapons_data[0])
 	
 	for selection in weapon_selections:
 		selection.select_weapon.connect(_on_select_weapon)
