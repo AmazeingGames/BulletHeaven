@@ -22,12 +22,16 @@ func init(_experience_factory : ExperienceFactory, _target) -> void:
 	create_enemy(enemy_position)
 	enemy_position = Vector2(0, -80)
 	create_enemy(enemy_position)
+	enemy_position = Vector2(0, -160)
+	create_enemy(enemy_position)
+	enemy_position = Vector2(0, 160)
+	create_enemy(enemy_position)
 	pass
 
 func create_enemy(position : Vector2) -> Enemy:
 	var enemy : Enemy
 	enemy = enemy_scene.instantiate()
-	enemy.init(experience_factory, target)
+	enemy.init(experience_factory, null)
 	add_child(enemy)
 	enemy.global_position = position
 	return enemy

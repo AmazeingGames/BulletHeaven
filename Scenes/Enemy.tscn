@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://u3celb5idtbq" path="res://Assets/Sounds/hurt.wav" id="7_6bs3c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6bs3c"]
+resource_local_to_scene = true
 shader = ExtResource("2_mo1ky")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_value = 0.0
@@ -383,7 +384,7 @@ shape = SubResource("CircleShape2D_ne65n")
 [node name="HealthComponent" type="Node" parent="." unique_id=19032163]
 script = ExtResource("2_wovta")
 max_health = 3
-max_invincibility_frames = 15
+max_invincibility_frames = 5
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 
 [node name="HurtBox" parent="." unique_id=1337371345 node_paths=PackedStringArray("health_component") groups=["Enemy"] instance=ExtResource("5_1exfc")]

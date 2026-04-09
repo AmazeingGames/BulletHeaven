@@ -147,6 +147,7 @@ func _on_health_changed(old_value, new_value, max_value):
 	
 	if (did_take_damage):
 		# Plays SFX, creates particles, flashes white
+		print_debug("took damage")
 		effect_player.play("TakeDamage")
 		gpu_particles_2d.restart()
 		pass
