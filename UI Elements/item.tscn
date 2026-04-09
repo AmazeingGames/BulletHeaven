@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dpixv5nen66ee"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5k03"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eveob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2g2ny"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2l2ym"]
+
+[node name="Item" type="PanelContainer" unique_id=1795988412]
+size_flags_horizontal = 3
+
+[node name="ItemMargin" type="MarginContainer" parent="." unique_id=162042841]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ItemVBox" type="VBoxContainer" parent="ItemMargin" unique_id=962579827]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="ItemMargin/ItemVBox" unique_id=33724382]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemMargin/ItemVBox" unique_id=1363980701]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="ItemName" type="Label" parent="ItemMargin/ItemVBox/VBoxContainer" unique_id=440755108]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Item name"
+
+[node name="Item Description" type="Label" parent="ItemMargin/ItemVBox/VBoxContainer" unique_id=1508596829]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 6
+text = "[Item Description Here]"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=2023386804]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i5k03")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_eveob")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2g2ny")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2l2ym")
