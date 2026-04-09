@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d30ntqlo34loq" path="res://Scenes/Player.tscn" id="6_00287"]
 [ext_resource type="PackedScene" uid="uid://dtv7v4qnkycg4" path="res://Scenes/DetectionArea.tscn" id="7_5t7yc"]
 [ext_resource type="PackedScene" uid="uid://cc8lucwqvvk4u" path="res://Scenes/Weapon.tscn" id="7_ngcqm"]
-[ext_resource type="Resource" uid="uid://dfascp4gsy4pt" path="res://Resources/Knives/Knives.tres" id="8_ws1hi"]
+[ext_resource type="Resource" uid="uid://brg6aheht5v2a" path="res://Resources/Weapons/Bomb/Bomb.tres" id="8_xicox"]
 [ext_resource type="PackedScene" uid="uid://npjeurex0b5n" path="res://Projectile/Projectile.tscn" id="9_xicox"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p3ir5"]
@@ -587,7 +587,7 @@ z_index = 1
 
 [node name="Weapon" parent="Player/DetectionArea2" unique_id=1626368722 node_paths=PackedStringArray("test_detection_area", "projectile_holder") instance=ExtResource("7_ngcqm")]
 rotation = 3.106686
-weapon_data = ExtResource("8_ws1hi")
+weapon_data = ExtResource("8_xicox")
 projectile_ref = ExtResource("9_xicox")
 test_detection_area = NodePath("..")
 projectile_holder = NodePath("../../../ProjectileHolder")

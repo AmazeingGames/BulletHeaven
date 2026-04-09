@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://brg6aheht5v2a"]
+
+[ext_resource type="Resource" uid="uid://b7glx7i2hq5iv" path="res://Resources/Weapons/Bomb/BombBehavior.tres" id="1_yuna7"]
+[ext_resource type="Script" uid="uid://cplej304bd4a3" path="res://Scripts/Attack/WeaponData.gd" id="2_mchbg"]
+[ext_resource type="Resource" uid="uid://b5ed4lqhaoeil" path="res://Resources/Weapons/Bomb/BombStats.tres" id="3_yu8j1"]
+[ext_resource type="Resource" uid="uid://p6h2wjjg666n" path="res://Resources/Weapons/Bomb/BombUpgradeStats.tres" id="4_r4cby"]
+
+[resource]
+script = ExtResource("2_mchbg")
+stats = ExtResource("3_yu8j1")
+upgrade_amount = ExtResource("4_r4cby")
+behavior = ExtResource("1_yuna7")
+metadata/_custom_type_script = "uid://cplej304bd4a3"

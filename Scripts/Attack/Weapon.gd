@@ -18,13 +18,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	time_till_fire -= delta
-	closest_enemy = player_detection_area.find_closest_target(weapon_data.stats.range, "Enemy")
+	closest_enemy = player_detection_area.find_closest_target(weapon_data.stats.detection_range, "Enemy")
 	
 	# Don't shoot if we don't have a target
-	if (weapon_data.behavior.movement_type == ProjectileBase.MovementType.HOMING
-			&& (closest_enemy == null or not is_instance_valid(closest_enemy))):
-		return
-	
+	match weapon_data.behavior.movement_type:
+		ProjectileBase.MovementType.HOMING, ProjectileBase.MovementType.LOB:
+			if (closest_enemy == null or not is_instance_valid(closest_enemy)):
+				return
+			pass
 	if (time_till_fire <= 0):
 		fire(closest_enemy)
 	pass

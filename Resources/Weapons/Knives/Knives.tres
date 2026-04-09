@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dfascp4gsy4pt"]
 
-[ext_resource type="Resource" uid="uid://dx7qnple2q2pv" path="res://Resources/Knives/KnivesBehavior.tres" id="1_8eu0t"]
+[ext_resource type="Resource" uid="uid://dx7qnple2q2pv" path="res://Resources/Weapons/Knives/KnivesBehavior.tres" id="1_8eu0t"]
 [ext_resource type="Script" uid="uid://cplej304bd4a3" path="res://Scripts/Attack/WeaponData.gd" id="1_v3mx5"]
-[ext_resource type="Resource" uid="uid://bb2wrgdqcjirq" path="res://Resources/Knives/KnivesStats.tres" id="2_8eu0t"]
-[ext_resource type="Resource" uid="uid://csscnqpaixbt6" path="res://Resources/Knives/KnivesUpgradeStats.tres" id="3_48x0p"]
+[ext_resource type="Resource" uid="uid://bb2wrgdqcjirq" path="res://Resources/Weapons/Knives/KnivesStats.tres" id="2_8eu0t"]
+[ext_resource type="Resource" uid="uid://csscnqpaixbt6" path="res://Resources/Weapons/Knives/KnivesUpgradeStats.tres" id="3_48x0p"]
 
 [resource]
 script = ExtResource("1_v3mx5")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpr3ic0w6fyhw" path="res://Projectile/projectile_test.gd" id="1_sabaq"]
 [ext_resource type="Texture2D" uid="uid://bvp8nd2qr02j4" path="res://icon.svg" id="2_ncrf7"]
-[ext_resource type="Resource" uid="uid://bb2wrgdqcjirq" path="res://Resources/Knives/KnivesStats.tres" id="2_q8bdc"]
+[ext_resource type="Resource" uid="uid://bb2wrgdqcjirq" path="res://Resources/Weapons/Knives/KnivesStats.tres" id="2_q8bdc"]
 [ext_resource type="PackedScene" uid="uid://dtv7v4qnkycg4" path="res://Scenes/DetectionArea.tscn" id="3_pc4ip"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncrf7"]

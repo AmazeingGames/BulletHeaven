@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponStats" format=3 uid="uid://b5ed4lqhaoeil"]
+
+[ext_resource type="Script" uid="uid://b7b1rvv44u4qs" path="res://Scripts/Attack/WeaponStats.gd" id="1_auu3d"]
+
+[resource]
+script = ExtResource("1_auu3d")
+scale = Vector2(2, 2)
+effect_value = 1.0
+seconds_between_attacks = 1.0
+projectiles_per_attack = 1
+projectile_speed = 150.0
+detection_range = 300
+lob_distance = 120
+metadata/_custom_type_script = "uid://b7b1rvv44u4qs"

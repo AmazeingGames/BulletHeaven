@@ -61,10 +61,9 @@ func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: Stri
 	
 	match projectile_data.movement_type:
 		projectile_data.MovementType.LOB:
-			assert(closest_target != null, "Closest target should not be null when the projectile is initialized. 
-				Ensure `RequiresTarget` is set to true on WeaponData resource.")
+			assert(closest_target != null, "Closest target should not be null when the projectile is initialized.")
 			var dir = (closest_target.global_position - _origin.global_position).normalized()
-			target_position = _origin.global_position + dir * 800
+			target_position = _origin.global_position + dir * weapon_stats.lob_distance
 
 		projectile_data.MovementType.HOMING:
 			assert(closest_target != null, "Closest target should not be null when the projectile is initialized.")
@@ -124,7 +123,7 @@ func update_homing (delta: float):
 
 ## Arcing motion toward a target global_position.
 func update_lob (delta: float):
-	var projectile_speed = projectile_data.projectile_speed * delta
+	var projectile_speed = weapon_stats.projectile_speed * delta
 	
 	var angle = global_position.angle_to_point(target_position)
 	
@@ -186,7 +185,7 @@ func apply_effect():
 		pass
 	elif projectile_data.effect_type == projectile_data.EffectType.HEALTH:
 		for n in targets:
-			print(targets[n].name, " takes ", projectile_data.affect_value)
+			print(targets[n].name, " takes ", weapon_stats.effect_value)
 	elif projectile_data.damage_type == projectile_data.DamageType.AOE:
 		print("area of effect summoned at ", round(global_position))
 	pass
