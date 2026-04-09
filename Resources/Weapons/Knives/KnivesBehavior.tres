@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dhvhj2ylxexay" path="res://Projectile/Resource/projectile_base.gd" id="1_dpqxq"]
 [ext_resource type="SpriteFrames" uid="uid://0gnwm7iq8bh1" path="res://Projectile/Resource/Bullet.tres" id="2_p1wv0"]
+[ext_resource type="Texture2D" uid="uid://dlvvrffxupctf" path="res://Assets/Sprites/Projectiles - Placeholder from itch/ph_bullet-Sheet.png" id="3_kmquu"]
 
 [resource]
 script = ExtResource("1_dpqxq")
 lifetime_type = 1
 sprite_frame = ExtResource("2_p1wv0")
+ui_icon = ExtResource("3_kmquu")
 metadata/_custom_type_script = "uid://dhvhj2ylxexay"

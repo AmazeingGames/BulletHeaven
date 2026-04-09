@@ -1,7 +1,4 @@
 extends Node
-# Draws the weapon selections screen
-# Gets random weapons from the weapon supplier
-# Gives weapon resources to the weapon selection UI elements
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

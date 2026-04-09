@@ -38,6 +38,7 @@ enum Lifetime { TIMED, COLLISION, TARGET }
 
 @export_category("Exported References")
 @export var sprite_frame: SpriteFrames
+@export var ui_icon: Texture2D
 	# Projectiles sprite_frames require the following animations (can be static):
 	#   Start: Plays as projectile spawns, before movement.
 	#   Travel: Plays as projectile is moving.
