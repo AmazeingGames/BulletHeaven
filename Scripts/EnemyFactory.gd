@@ -15,8 +15,12 @@ func _process(delta: float) -> void:
 
 func init(_experience_factory : ExperienceFactory, _target) -> void:
 	experience_factory = _experience_factory
-	var enemy_position = Vector2(-20, -20)
+	var enemy_position = Vector2(-80, -80)
 	target = _target
+	create_enemy(enemy_position)
+	enemy_position = Vector2(80, 80)
+	create_enemy(enemy_position)
+	enemy_position = Vector2(0, -80)
 	create_enemy(enemy_position)
 	pass
 

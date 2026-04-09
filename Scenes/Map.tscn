@@ -560,9 +560,6 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_p3ir5")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_00287"]
-height = 334.0
-
 [node name="Map" type="Node2D" unique_id=1138633799 node_paths=PackedStringArray("player", "ui_manager", "weapon_supplier", "experience_tracker", "experience_factory", "enemy_factory")]
 script = ExtResource("1_r08cw")
 player = NodePath("Player")
@@ -580,12 +577,6 @@ tile_set = SubResource("TileSet_ci6au")
 script = ExtResource("4_5t7yc")
 health_bar = NodePath("../CanvasLayer/HealthBar")
 upgrade_menu = NodePath("../CanvasLayer/UpgradeMenu")
-
-[node name="Area2D" type="StaticBody2D" parent="." unique_id=1929875641]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1883440198]
-position = Vector2(59, 14)
-shape = SubResource("CapsuleShape2D_00287")
 
 [node name="Player" parent="." unique_id=1394852611 instance=ExtResource("6_00287")]
 z_index = 1

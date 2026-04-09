@@ -32,11 +32,9 @@ func find_closest_target_from(origin:Vector2, radius:float, group:String, requir
 	for result in results:
 		var body = result.collider
 		if body.is_in_group(group) and is_instance_valid(body):
-			# if require_collsion_shape && collision_shape != null:
-				# ssacontinue
 			validResults += 1
 			# global_position might be more concise
-			var square_distance = transform.get_origin().distance_squared_to(body.global_position)
+			var square_distance = origin.distance_squared_to(body.global_position)
 			if square_distance < closest_distance:
 				closest_distance = square_distance
 				closest_target = result.collider

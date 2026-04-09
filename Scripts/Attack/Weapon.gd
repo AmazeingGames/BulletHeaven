@@ -54,7 +54,8 @@ func fire(closest_enemy : Node2D) -> void:
 	time_till_fire = weapon_data.stats.seconds_between_attacks
 	
 	for n in weapon_data.stats.projectiles_per_attack:
-		var projectile = projectile_ref.instantiate()
+		var projectile : Projectile
+		projectile = projectile_ref.instantiate()
 		add_child(projectile)
 		projectile.init(weapon_data.behavior, player_detection_area, "Enemy", closest_enemy, weapon_data.stats)
 		self.rotation += weapon_data.behavior.rotation_amount
