@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_r5la6")
-effect_scale = Vector2(1, 1)
+effect_scale = Vector2(0.2, 0.2)
+projectiles_per_attack = 1
 metadata/_custom_type_script = "uid://b7b1rvv44u4qs"

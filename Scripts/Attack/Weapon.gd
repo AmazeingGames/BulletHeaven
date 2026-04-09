@@ -8,6 +8,7 @@ var weapon_data : WeaponData
 var player_detection_area: DetectionArea 
 var closest_enemy: Node2D
 var has_been_initialized: bool
+var rotation_amount: int
 
 var time_till_fire: float
 
@@ -57,7 +58,8 @@ func fire(closest_enemy : Node2D) -> void:
 		var projectile : Projectile
 		projectile = projectile_ref.instantiate()
 		add_child(projectile)
-		projectile.init(weapon_data.behavior, player_detection_area, "Enemy", closest_enemy, weapon_data.stats)
-		self.rotation += weapon_data.behavior.rotation_amount
+		projectile.init(weapon_data.behavior, player_detection_area, "Enemy", closest_enemy, weapon_data.stats, rotation_amount)
+		rotation_amount += weapon_data.behavior.rotation_amount
+		# self.rotation += weapon_data.behavior.rotation_amount
 		pass
 	pass

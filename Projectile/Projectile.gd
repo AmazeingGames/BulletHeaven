@@ -48,10 +48,10 @@ var targets = {}
 const delete_time = 60 # Default lifetime if not using timed behavior.
 
 func init(_behavior: ProjectileBase, _origin: Node2D, _target_group: String, 
-		closest_target: Node2D, stats: WeaponStats) -> void:
+		closest_target: Node2D, stats: WeaponStats, rotation_amount: int) -> void:
 	projectile_behavior = _behavior
 	
-	direction = _origin.rotation
+	direction = rotation_amount
 	global_position = _origin.global_position
 	target_group = _target_group
 	weapon_stats = stats
