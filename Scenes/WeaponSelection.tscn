@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6he8iqayj0ts"]
 
 [ext_resource type="Script" uid="uid://d3ne2luwvfgs5" path="res://Scripts/WeaponSelection.gd" id="1_k4dem"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/Projectiles - Placeholder from itch/top 2.png" id="1_y4c64"]
+[ext_resource type="Texture2D" uid="uid://ma8xe6ryy85p" path="res://Assets/Sprites/Projectiles - Placeholder from itch/bullet-icon.png" id="2_k4dem"]
 
 [node name="WeaponSelection" type="Control" unique_id=457775920 node_paths=PackedStringArray("button", "texture_rect")]
 layout_mode = 3
@@ -34,5 +34,5 @@ offset_right = 75.0
 offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_y4c64")
+texture = ExtResource("2_k4dem")
 stretch_mode = 4
