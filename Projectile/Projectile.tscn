@@ -1,35 +1,38 @@
 [gd_scene format=3 uid="uid://npjeurex0b5n"]
 
 [ext_resource type="Script" uid="uid://bsiyqkaqepfqx" path="res://Projectile/Projectile.gd" id="1_ghnax"]
-[ext_resource type="Texture2D" uid="uid://dlvvrffxupctf" path="res://Assets/Sprites/Projectiles - Placeholder from itch/ph_bullet-Sheet.png" id="4_2pb4h"]
+[ext_resource type="SpriteFrames" uid="uid://3f4xsmcpmq1q" path="res://Projectile/Resource/Bomb.tres" id="2_ghnax"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_whj0l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_2pb4h")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ghnax"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hl16p"]
-radius = 2.0
+[sub_resource type="Animation" id="Animation_ghnax"]
+resource_name = "Die"
 
-[node name="Projectile" type="Area2D" unique_id=912711085 node_paths=PackedStringArray("sprite", "lifetime_timer") groups=["Projectile"]]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_whj0l"]
+_data = {
+&"Explode": SubResource("Animation_ghnax")
+}
+
+[node name="Projectile" type="Area2D" unique_id=912711085 node_paths=PackedStringArray("sprite", "lifetime_timer", "hitbox") groups=["Projectile"]]
 texture_filter = 1
 script = ExtResource("1_ghnax")
 sprite = NodePath("Sprite")
 lifetime_timer = NodePath("Lifetime")
+hitbox = NodePath("Hitbox")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=26040282]
-sprite_frames = SubResource("SpriteFrames_whj0l")
+sprite_frames = ExtResource("2_ghnax")
+animation = &"End"
+frame = 6
+frame_progress = 1.0
 
 [node name="Lifetime" type="Timer" parent="." unique_id=1176572797]
 one_shot = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=672746376 groups=["Projectile"]]
-shape = SubResource("CircleShape2D_hl16p")
+shape = SubResource("CircleShape2D_ghnax")
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="." unique_id=1171091040]
+libraries/ = SubResource("AnimationLibrary_whj0l")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -2,14 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://bgf1feo548grn" path="res://Assets/Sprites/Projectiles - Placeholder from itch/ph_grenade-Sheet.png" id="1_hj7j0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymjmq"]
-atlas = ExtResource("1_hj7j0")
-region = Rect2(20, 0, 20, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qylq3"]
-atlas = ExtResource("1_hj7j0")
-region = Rect2(40, 0, 20, 20)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_br4gq"]
 atlas = ExtResource("1_hj7j0")
 region = Rect2(80, 0, 20, 20)
@@ -49,12 +41,6 @@ region = Rect2(40, 0, 20, 20)
 [resource]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ymjmq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qylq3")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_br4gq")
 }, {

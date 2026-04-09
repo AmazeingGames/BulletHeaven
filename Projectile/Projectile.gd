@@ -1,6 +1,6 @@
 extends Node2D
 class_name Projectile
-# Main projectile_data controller.
+# Main projectile_behavior controller.
 # Responsible for:
 #   - Movement behavior
 #   - Lifetime handling
@@ -16,7 +16,7 @@ enum AnimationState {START,TRAVEL,END}
 #endregion
 
 @export_category("Projectile resource")
-var projectile_data: ProjectileBase # Data resource that defines projectile_data behavior.
+var projectile_behavior: ProjectileBase # Data resource that defines projectile_behavior behavior.
 
 @export_category("Projectile Values")
 ## Movement direction (in degres) for standard projectiles.
@@ -31,52 +31,57 @@ var target : Node2D
 @export_category("Exported References")
 @export var sprite : AnimatedSprite2D
 @export var lifetime_timer : Timer
+@export var hitbox : CollisionShape2D
 
 #region Internal Variables
 var current_state := AnimationState.START # Current animation state.
-var target_group: String # Group this projectile_data can interact with.
+var target_group: String # Group this projectile_behavior can interact with.
 var starting_position : Vector2 # Initial spawn global_position (used in lob calculations).
 var reference_scale : Vector2 # Projectile size set in projectile data. Used to calculate scale
 var weapon_stats : WeaponStats # Stats that upgrade over time, like damage, range, size, or speed
 
+## Stores targets hit.
+## Key: Area2D.
+## Value: Parent node (actual entity).
 var targets = {}
-	# Stores targets hit:
-	#   Key: Area2D
-	#   Value: Parent node (actual entity)
 
 const delete_time = 60 # Default lifetime if not using timed behavior.
 
-func init(_projectile_base: ProjectileBase, _origin: Node2D, _target_group: String, 
+func init(_behavior: ProjectileBase, _origin: Node2D, _target_group: String, 
 		closest_target: Node2D, stats: WeaponStats) -> void:
-	projectile_data = _projectile_base
+	projectile_behavior = _behavior
 	
-	reference_scale = stats.scale
 	direction = _origin.rotation
 	global_position = _origin.global_position
 	target_group = _target_group
 	weapon_stats = stats
 	
 	starting_position = global_position
-	sprite.sprite_frames = projectile_data.sprite_frame
+	sprite.sprite_frames = projectile_behavior.sprite_frame
 	
-	match projectile_data.movement_type:
-		projectile_data.MovementType.LOB:
+	match projectile_behavior.movement_type:
+		projectile_behavior.MovementType.LOB:
 			assert(closest_target != null, "Closest target should not be null when the projectile is initialized.")
 			var dir = (closest_target.global_position - _origin.global_position).normalized()
 			target_position = _origin.global_position + dir * weapon_stats.lob_distance
+			
+			# We don't set scale for lob since it's determined by a calculation
+			reference_scale = stats.reference_scale
 
-		projectile_data.MovementType.HOMING:
+			# Only damage enemies on explosion
+			hitbox.disabled = true
+
+		projectile_behavior.MovementType.HOMING:
 			assert(closest_target != null, "Closest target should not be null when the projectile is initialized.")
 			target = closest_target
-			scale = weapon_stats.scale 
+			scale = weapon_stats.effect_scale 
 		_:
-			# We don't set scale in lob since that's determined by a calculation
-			scale = weapon_stats.scale 
+			scale = weapon_stats.effect_scale 
 		pass
 
 	# Assigns timer value with special case for timed projectiles.
-	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
-		var lifetime = randf_range(projectile_data.lifetime_range.x, projectile_data.lifetime_range.y)
+	if projectile_behavior.lifetime_type == projectile_behavior.Lifetime.TIMED:
+		var lifetime = randf_range(projectile_behavior.lifetime_range.x, projectile_behavior.lifetime_range.y)
 		lifetime_timer.start(lifetime)
 	else:
 		lifetime_timer.start(delete_time)
@@ -90,11 +95,11 @@ func _physics_process(delta: float) -> void:
 	
 	if current_state != AnimationState.TRAVEL: return
 	
-	if projectile_data.movement_type == projectile_data.MovementType.STANDARD:
+	if projectile_behavior.movement_type == projectile_behavior.MovementType.STANDARD:
 		update_standard(delta)
-	elif projectile_data.movement_type == projectile_data.MovementType.HOMING:
+	elif projectile_behavior.movement_type == projectile_behavior.MovementType.HOMING:
 		update_homing(delta)
-	elif projectile_data.movement_type == projectile_data.MovementType.LOB:
+	elif projectile_behavior.movement_type == projectile_behavior.MovementType.LOB:
 		update_lob(delta)
 	pass
 
@@ -148,13 +153,13 @@ func update_lob (delta: float):
 func _process(_delta: float) -> void:
 	if current_state != AnimationState.TRAVEL: return
 	
-	if projectile_data.lifetime_type == projectile_data.Lifetime.TIMED:
+	if projectile_behavior.lifetime_type == projectile_behavior.Lifetime.TIMED:
 		check_timed()
 		
-	elif projectile_data.lifetime_type == projectile_data.Lifetime.COLLISION:
+	elif projectile_behavior.lifetime_type == projectile_behavior.Lifetime.COLLISION:
 		check_collision()
 		
-	elif projectile_data.lifetime_type == projectile_data.Lifetime.TARGET:
+	elif projectile_behavior.lifetime_type == projectile_behavior.Lifetime.TARGET:
 		check_target()
 	pass
 
@@ -181,13 +186,17 @@ func check_target():
 
 #region Effects
 func apply_effect():
-	if projectile_data.damage_type == projectile_data.DamageType.DIRECT:
+	if projectile_behavior.damage_type == projectile_behavior.DamageType.DIRECT:
 		pass
-	elif projectile_data.effect_type == projectile_data.EffectType.HEALTH:
+
+	elif projectile_behavior.effect_type == projectile_behavior.EffectType.HEALTH:
 		for n in targets:
-			print(targets[n].name, " takes ", weapon_stats.effect_value)
-	elif projectile_data.damage_type == projectile_data.DamageType.AOE:
-		print("area of effect summoned at ", round(global_position))
+			# print(targets[n].name, " took ", weapon_stats.effect_value)
+			pass
+
+	elif projectile_behavior.damage_type == projectile_behavior.DamageType.AOE:
+		# print("area of effect summoned at ", round(global_position))
+		pass
 	pass
 #endregion
 
@@ -207,6 +216,9 @@ func animation_state_machine():
 		AnimationState.END:
 			if sprite.animation != "End":
 				sprite.play("End")
+				if (projectile_behavior.movement_type == ProjectileBase.MovementType.LOB):
+					explode()
+			# explode
 			elif !sprite.is_playing():
 				_on_death()
 	pass
@@ -216,23 +228,25 @@ func animation_state_machine():
 func _on_death():
 	self.queue_free()
 
+func explode() -> void:
+	print_debug("create explosion")
+	hitbox.disabled = false
+	var explosionScale = weapon_stats.effect_scale
+	scale = explosionScale
+	pass
+
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group(target_group) and !targets.has(area):		
-		targets[area] = area.get_parent()
-		
-		if projectile_data.damage_type == projectile_data.DamageType.DIRECT:
-			if projectile_data.effect_type == projectile_data.EffectType.HEALTH:
-				if (area.has_method("take_damage")):
-					area.take_damage(weapon_stats.effect_value)
-				# print(targets[area].name, " takes ", projectile_data.affect_value)
-			elif projectile_data.effect_type == projectile_data.EffectType.SPEED:
-				print(targets[area].name, " slows by ", projectile_data.affect_value)
-		
-		if projectile_data.movement_type == projectile_data.MovementType.HOMING:
-			if target == targets[area]:
-				current_state = AnimationState.END
-				apply_effect()
-#endregion
+	var should_apply_effects = area.is_in_group(target_group) and !targets.has(area)	
+	if !should_apply_effects:
+		return
 
-
+	targets[area] = area.get_parent()
 	
+	if projectile_behavior.effect_type == projectile_behavior.EffectType.HEALTH:
+		if (area.has_method("take_damage")):
+			area.take_damage(weapon_stats.effect_value)
+			# print(targets[area].name, " takes ", projectile_behavior.affect_value)
+
+	elif projectile_behavior.effect_type == projectile_behavior.EffectType.SPEED:
+		print(targets[area].name, " slows by ", projectile_behavior.affect_value)
+#endregion
