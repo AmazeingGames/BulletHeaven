@@ -3,7 +3,7 @@ extends Node
 
 @export var health_bar : ProgressBar
 
-func assign_player(health_component : HealthComponent) -> void:
+func init(health_component : HealthComponent) -> void:
 	health_bar.min_value = 0
 	health_bar.max_value = health_component.max_health
 	health_bar.value = health_component.current_health

@@ -36,5 +36,4 @@ func get_speed():
 	for key in debuff:
 		if debuff[key].x == Stats.SPEED:
 			speed = speed - debuff[key].z
-	
 	return speed

@@ -7,6 +7,5 @@
 script = ExtResource("1_78e77")
 movement_type = 1
 lifetime_type = 1
-rotation_amount = 10
 sprite_frame = ExtResource("2_78e77")
 metadata/_custom_type_script = "uid://dhvhj2ylxexay"

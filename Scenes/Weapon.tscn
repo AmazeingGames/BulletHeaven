@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cc8lucwqvvk4u"]
 
 [ext_resource type="Script" uid="uid://1awbiynty17g" path="res://Scripts/Attack/Weapon.gd" id="1_m5ws0"]
+[ext_resource type="PackedScene" uid="uid://npjeurex0b5n" path="res://Projectile/Projectile.tscn" id="2_sw2lr"]
 
 [node name="Weapon" type="Node2D" unique_id=1626368722]
 script = ExtResource("1_m5ws0")
+projectile_ref = ExtResource("2_sw2lr")

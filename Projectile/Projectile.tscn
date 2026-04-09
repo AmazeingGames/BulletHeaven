@@ -23,7 +23,7 @@ hitbox = NodePath("Hitbox")
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=26040282]
 sprite_frames = ExtResource("2_ghnax")
 animation = &"End"
-frame = 6
+frame = 4
 frame_progress = 1.0
 
 [node name="Lifetime" type="Timer" parent="." unique_id=1176572797]

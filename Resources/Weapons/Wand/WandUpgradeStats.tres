@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_jahm1")
+effect_scale = Vector2(1, 1)
 metadata/_custom_type_script = "uid://b7b1rvv44u4qs"

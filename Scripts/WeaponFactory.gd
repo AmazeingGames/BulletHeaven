@@ -1,5 +1,5 @@
 extends Node
-# Instantiates weapon scenes
+# Instantiates weapon scenes 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
