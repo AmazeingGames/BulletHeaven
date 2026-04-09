@@ -17,21 +17,24 @@ func init(_experience_factory : ExperienceFactory, _target) -> void:
 	experience_factory = _experience_factory
 	var enemy_position = Vector2(-80, -80)
 	target = _target
-	create_enemy(enemy_position)
-	enemy_position = Vector2(80, 80)
-	create_enemy(enemy_position)
-	enemy_position = Vector2(0, -80)
-	create_enemy(enemy_position)
-	enemy_position = Vector2(0, -160)
-	create_enemy(enemy_position)
-	enemy_position = Vector2(0, 160)
-	create_enemy(enemy_position)
+	
+	# create_enemy(enemy_position)
+	# enemy_position = Vector2(80, 80)
+	# create_enemy(enemy_position)
+	# enemy_position = Vector2(0, -80)
+	# create_enemy(enemy_position)
+	# enemy_position = Vector2(0, -160)
+	# create_enemy(enemy_position)
+	# enemy_position = Vector2(0, 160)
+	# create_enemy(enemy_position)
 	pass
 
 func create_enemy(position : Vector2) -> Enemy:
 	var enemy : Enemy
 	enemy = enemy_scene.instantiate()
-	enemy.init(experience_factory, null)
+	enemy.init(experience_factory, target)
+	enemy.add_to_group("Enemy")
 	add_child(enemy)
 	enemy.global_position = position
+	print_debug("created enemy")
 	return enemy
