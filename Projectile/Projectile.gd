@@ -229,7 +229,6 @@ func _on_death():
 	self.queue_free()
 
 func explode() -> void:
-	print_debug("create explosion")
 	hitbox.disabled = false
 	var explosionScale = weapon_stats.effect_scale
 	scale = explosionScale

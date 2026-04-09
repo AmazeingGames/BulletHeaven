@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://00y3mpb4siyu"]
 
 [ext_resource type="PackedScene" uid="uid://b6he8iqayj0ts" path="res://Scenes/WeaponSelection.tscn" id="1_hywla"]
+[ext_resource type="Script" uid="uid://dwo7ke16db2wh" path="res://Scripts/UpgradeMenu.gd" id="1_kc5h2"]
 
-[node name="UpgradeMenu" type="Control" unique_id=853430574]
+[node name="UpgradeMenu" type="Control" unique_id=853430574 node_paths=PackedStringArray("selection_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_kc5h2")
+selection_container = NodePath("HBoxContainer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=70308452]
 layout_direction = 2

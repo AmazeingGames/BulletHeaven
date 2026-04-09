@@ -6,8 +6,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ui_manager.init(player.find_child("HealthComponent"))
-	weapon_supplier.init(player.find_child("DetectionArea"))
+	ui_manager.init(player.find_child("HealthComponent"), weapon_supplier.weapons_data)
+	weapon_supplier.init(player.find_child("DetectionArea"), ui_manager.upgrade_menu.weapon_selections)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -8,7 +8,7 @@ extends CharacterBody2D
 var characterDirection : Vector2
 
 func _ready() -> void:
-	print_debug(health_component == null)
+	# print_debug(health_component == null)
 	health_component.health_changed.connect(_on_health_changed)
 	pass
 

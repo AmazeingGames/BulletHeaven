@@ -1,11 +1,13 @@
 extends Node
+class_name WeaponSelection
 # Has some weapon data given to it by some other class
 # On click, notifies the weapon supplier to supply the player with a kind of weapon
 
 @export var button : Button
 @export var texture_rect : TextureRect
 var weapon_data : WeaponData
-signal gain_weapon(_weapon_data)
+signal select_weapon (_weapon_data)
+
  
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,7 +19,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func _on_press() -> void:
-	gain_weapon.emit(weapon_data)
+	select_weapon.emit(weapon_data)
 	pass
 
 # Prepares the button to give a weapon on press

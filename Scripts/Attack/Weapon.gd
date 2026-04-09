@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 
 # Weapon must be initialized after creation
 func init(_player_detection_area : DetectionArea, _weapon_data: WeaponData) -> void:
-	print_debug("initialized!")
+	# print_debug("initialized!")
 	player_detection_area = _player_detection_area
 	weapon_data = _weapon_data
 	time_till_fire = weapon_data.stats.seconds_between_attacks
@@ -50,7 +50,7 @@ func level_up() -> void:
 	pass
 
 func fire(closest_enemy : Node2D) -> void:
-	print_debug("fire")
+	# dsdprint_debug("fire")
 	time_till_fire = weapon_data.stats.seconds_between_attacks
 	
 	for n in weapon_data.stats.projectiles_per_attack:

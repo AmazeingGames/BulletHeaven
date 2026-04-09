@@ -20,9 +20,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func init(detection_area: DetectionArea) -> void:
+func init(detection_area: DetectionArea, weapon_selections: Array[WeaponSelection]) -> void:
 	player_detection_area = detection_area
 	supply_weapon(weapons_data[2])
+	
+	for selection in weapon_selections:
+		selection.select_weapon.connect(_on_select_weapon)
+		pass
 	pass
 
 func supply_weapon(weapon_data: WeaponData) -> void:
@@ -33,8 +37,13 @@ func supply_weapon(weapon_data: WeaponData) -> void:
 			return
 		pass
 	
+	print_debug("Added new weapon")
 	var new_weapon = weapon_scene.instantiate() 
 	current_weapons.append(weapon_data)
 	add_child(new_weapon)
 	new_weapon.init(player_detection_area, weapon_data)
 	pass 
+
+func _on_select_weapon(weapon_data : WeaponData) -> void:
+	supply_weapon(weapon_data)
+	pass
