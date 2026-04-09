@@ -36,5 +36,4 @@ func create_enemy(position : Vector2) -> Enemy:
 	enemy.add_to_group("Enemy")
 	add_child(enemy)
 	enemy.global_position = position
-	print_debug("created enemy")
 	return enemy

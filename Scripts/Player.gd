@@ -3,14 +3,14 @@ extends CharacterBody2D
 
 @export var movement_speed : float = 500
 @onready var animated_sprite := $AnimatedSprite2D
-@onready var health_component := $HealthComponent
 @export var detection_area: DetectionArea
+@export var health_component: HealthComponent
 
 var characterDirection : Vector2
 
 func _ready() -> void:
-	# print_debug(health_component == null)
 	health_component.health_changed.connect(_on_health_changed)
+	health_component.health_depleted.connect(_on_health_depleted)
 	pass
 
 func _physics_process(delta):
@@ -31,11 +31,13 @@ func _physics_process(delta):
 	move_and_slide()	
 
 func _on_health_changed(old_value, new_value, max_value):
-	print_debug("Player health changed")
+	print_debug(new_value)
+	
 	# Flash
 	# Play SFX
 	pass
 
-func _on_health_depleted():
+func _on_health_depleted(node : Node2D):
+	get_tree().reload_current_scene()
 	# Game end
 	pass

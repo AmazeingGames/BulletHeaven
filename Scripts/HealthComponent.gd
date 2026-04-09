@@ -26,7 +26,6 @@ func damage(damage_value: int):
 	var old_health = current_health
 	current_health = clamp(current_health - damage_value, 0, max_health) #prevents negative health
 	health_changed.emit(old_health, current_health, max_health)
-	
 	if (current_health == 0):
 		health_depleted.emit(get_parent())
 	pass

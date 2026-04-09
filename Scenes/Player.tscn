@@ -225,11 +225,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
 radius = 8.062258
 
-[node name="Player" type="CharacterBody2D" unique_id=1394852611 node_paths=PackedStringArray("detection_area") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1394852611 node_paths=PackedStringArray("detection_area", "health_component") groups=["Player"]]
+collision_layer = 15
+collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_cvnsp")
 movement_speed = 200.0
 detection_area = NodePath("DetectionArea")
+health_component = NodePath("HealthComponent")
 
 [node name="DetectionArea" parent="." unique_id=1657825118 instance=ExtResource("2_52ee3")]
 
@@ -241,6 +244,7 @@ autoplay = "idle"
 [node name="HealthComponent" type="Node" parent="." unique_id=1756785829]
 script = ExtResource("6_nn08x")
 max_health = 10
+max_invincibility_frames = 20
 metadata/_custom_type_script = "uid://bunfc1f8smcsj"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=573126046]
@@ -248,9 +252,11 @@ position = Vector2(0, 12)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_dewec")
 
-[node name="HurtBox" parent="." unique_id=1337371345 groups=["Player"] instance=ExtResource("5_5ixxa")]
+[node name="HurtBox" parent="." unique_id=1337371345 node_paths=PackedStringArray("health_component") groups=["Player"] instance=ExtResource("5_5ixxa")]
 position = Vector2(0, 11)
 scale = Vector2(0.6, 0.6)
+collision_layer = 3
+health_component = NodePath("../HealthComponent")
 damaging_group = "Enemy"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1926810151]

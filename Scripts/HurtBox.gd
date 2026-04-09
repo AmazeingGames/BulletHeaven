@@ -6,5 +6,4 @@ extends Area2D
 
 func take_damage(damage: int) -> void:
 	health_component.damage(damage)
-	# print_debug("took damage")
 	pass

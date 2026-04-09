@@ -357,7 +357,7 @@ _data = {
 &"TakeDamage": SubResource("Animation_idouy")
 }
 
-[node name="Enemy" type="StaticBody2D" unique_id=2134776135 node_paths=PackedStringArray("health", "stats", "sprite", "hurtbox", "push_zone", "animation_player", "effect_player", "gpu_particles_2d")]
+[node name="Enemy" type="Area2D" unique_id=213823415 node_paths=PackedStringArray("health", "stats", "sprite", "hurtbox", "push_zone", "animation_player", "effect_player", "gpu_particles_2d")]
 scale = Vector2(0.15, 0.15)
 collision_layer = 2
 collision_mask = 2
@@ -396,6 +396,7 @@ health_component = NodePath("../HealthComponent")
 script = ExtResource("5_mo1ky")
 base_speed = 100
 max_stun_time = 2
+damage = 1
 metadata/_custom_type_script = "uid://b3ly7c1bfbicm"
 
 [node name="PushZone" type="Area2D" parent="." unique_id=997432061]
@@ -423,5 +424,6 @@ speed_scale = 0.5
 [node name="EffectPlayer" type="AnimationPlayer" parent="." unique_id=1972932397]
 libraries/ = SubResource("AnimationLibrary_idouy")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="PushZone" to="." method="_on_push_zone_area_entered"]
 [connection signal="area_exited" from="PushZone" to="." method="_on_push_zone_area_exited"]

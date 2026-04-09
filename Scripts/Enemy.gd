@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 class_name Enemy
 
 #Simple follow enemy, holds a player reference that it uses to target.
@@ -163,4 +163,14 @@ func _on_health_depleted(unit : Node2D):
 ## Create experience. Called from the animation player.
 func _on_death_animation_finish() -> void:
 	experience_factory.create_experience(global_position)
+	pass
+#endregion
+
+func _on_area_entered(area: Area2D) -> void:
+	if !area.is_in_group("Player"):
+		return
+	# print_debug("damage player")
+	
+	if (area.has_method("take_damage")):
+		area.take_damage(stats.damage)
 	pass

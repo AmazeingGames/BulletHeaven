@@ -620,7 +620,7 @@ enemy_scene = ExtResource("5_r08cw")
 script = ExtResource("19_dms03")
 
 [node name="Spawner" parent="WaveManager" unique_id=976132502 instance=ExtResource("20_6kno7")]
-position = Vector2(316, 3)
+position = Vector2(141, -1)
 width = 100.0
 height = 50.0
 

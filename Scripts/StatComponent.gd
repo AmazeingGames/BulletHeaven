@@ -6,6 +6,7 @@ enum Stats {SPEED}
 @export_category("Unit Non-Health Stats")
 @export var base_speed : int
 @export var max_stun_time : int
+@export var damage : int
 
 var time_elapsed : float
 var wait_time := 1.0
